@@ -1,0 +1,274 @@
+body {
+  background-color: rgb(219, 241, 243);
+}
+.entete {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  width: 100%;
+  height: 10%;
+}
+.titre {
+  margin: 1% 5%;
+  width: 60%;
+}
+.modifier {
+  margin: auto 5%;
+}
+h1 {
+text-align: center;
+padding: 0;
+margin: 0;
+}
+.pavé-supérieur {
+  display: flex;
+  flex-direction: row;
+  height: 39%;
+  width: 100%;
+  justify-content: space-around;
+  align-items: start;
+  .selecteur1, .selecteur2 {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: space-around;
+    align-items: start;
+    .date {
+      padding-left: 7%;
+    }
+    .datedebut {
+      display: flex;
+      flex-direction: row;
+      width: 80%;
+      margin-top: 2%;
+    }
+    .custom-input {
+      --wcs-input-font-size: 2em;
+      --wcs-input-value-font-weight: 900;
+      margin-left: 7%;
+    }
+
+    .label-date {
+      width: 50%;
+      font-family: "avenir-black", sans-serif;
+      font-size: x-large;
+      font-weight: bold;
+      margin-left: 20%;
+
+    }
+
+    .aRemplir {
+      border: 2px solid #dc1d1d;
+    }
+    .titreDuSelect {
+      width: 30%;
+      padding-left: 10%;
+      margin-right: 0;
+    }
+    .bloc {
+      display: flex;
+      flex-direction: row;
+      margin-top: 2%;
+    }
+
+    .menubas {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .select {
+      width: 76%;
+      padding-left: 0;
+      margin-right: 0;
+      input {
+        text-align: center;
+      }
+    }
+
+    .centrage {
+      margin-left: 10%;
+    }
+
+    .specialite {
+
+      font-family: "avenir-black", sans-serif;
+      font-size: x-large;
+      font-weight: bold;
+      margin-left: 25%;
+    }
+
+    .agent {
+      font-family: "avenir-black", sans-serif;
+      font-size: x-large;
+      font-weight: bold;
+      margin-left: 45%;
+    }
+
+    .heure {
+      font-family: "avenir-black", sans-serif;
+      font-size: x-large;
+      font-weight: bold;
+      margin-left: 40%;
+    }
+
+    .jour {
+      font-family: "avenir-black", sans-serif;
+      font-size: x-large;
+      font-weight: bold;
+      margin-left: 25%;
+    }
+  }
+}
+
+.toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  width: 50%;
+  background-color: #dc1d1d;
+}
+.toggle-titre {
+  font-size: 30px;
+  font-weight: bold;
+  width: 200px;
+  margin: 20%;
+}
+.switch {
+  display: flex;
+  justify-content: start;
+}
+
+.pavé-milieu {
+  height: 30%;
+  margin: 0 5%;
+
+  .label-commentaire {
+    font-family: "avenir-black", sans-serif;
+    text-decoration: underlines;
+    font-size: x-large;
+    font-weight: 700;
+    color: black;
+
+    .commentaire {
+      width: 80%;
+      height: 90%;
+      margin-left: 10%;
+    }
+  }
+}
+
+.blocAGC {
+  width: 200px;
+  margin-top: 20%;
+  margin-left: 25%;
+  padding-right: 5%;
+}
+
+.label-checkbox {
+  margin-left: 5%;
+}
+
+
+.pavé-inférieur {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-evenly;
+  margin-top: 20px;
+  height: 10%;
+  width: 100%;
+}
+.résumé {
+  width: 50%;
+}
+.div-label {
+  height: 15%;
+
+}
+.label-résumé {
+  font-family: "avenir-black", sans-serif;
+  font-size: x-large;
+  font-weight: 700;
+  height: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+  color: black;
+}
+.label-astreinte-valeur {
+  margin-left: 5%;
+  font-family: "avenir-book", sans-serif;
+  padding: 2px;
+  border:  thick double #32a1ce;
+  font-size:large;
+}
+.valider {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  height: 20%;
+  width: 20%;
+}
+.btn-valider {
+  margin-top: 20%;
+
+}
+.dialogModif {
+  border: 2px solid rgb(2, 2, 2);
+  background-color: rgb(157, 220, 197);
+}
+
+.dialogModif::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+.boutonsAlerte {
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+.selectbas {
+  margin: 0 5px 0 10%;
+  font-size: xx-large;
+  font-weight: bold;
+}
+.label-checkbox {
+  margin: 0;
+  font-size: x-large;
+  font-weight: bold;
+}
+.titreselectbas {
+  margin-right:  3%;
+  margin-left:  1%;
+  font-size: x-large;
+  font-weight: bold;
+}
+#selectSysteme {
+  width: 10%;
+  font-size: large;
+  font-weight: bold;
+  background-color: rgb(219, 241, 243);
+  margin-bottom: 2%;
+}
+.menubas {
+  display: flex;
+  align-items: center;
+  margin: 0 5%;
+  border: 2px solid rgb(197, 225, 227);
+  border-radius: 15%;
+}
+.selectSysteme {
+  margin-top: 2%;
+}
+.mois-precedent, .mois-encours {
+  background-color: rgb(157, 220, 197);
+  color: black;
+  margin: 6% 12% 6% 12%;
+  border: none;
+
+}
+.selectionne {
+  background-color: #065654;
+  color: azure;
+  border: 1px solid #065654;
+  border-radius: 9px;
+}

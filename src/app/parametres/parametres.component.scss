@@ -1,0 +1,171 @@
+
+h1 {
+  text-align: center;
+}
+.principale {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 1000px;
+  width: 1900px;
+
+  .superNG, .superVoie {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+    width: 20%;
+    margin: 20px;
+    border-radius: 5%;
+    border: 2px solid black;
+    font-weight: bold;
+    font-size:x-large;
+    a {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid rgb(114, 112, 112);
+    }
+    a:hover {
+      border: 3px solid rgb(246, 3, 3);
+    }
+    .ajouter {
+      width: 80%;
+      margin: auto;
+      margin-bottom: 0px;
+    }
+    wcs-button {
+      width: 80%;
+      margin: auto;
+      margin-bottom: 15px;
+      font-weight: bold;
+      font-size: large;
+    }
+  }
+
+  .superAGC {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+    width: 20%;
+    margin: 20px;
+    border-radius: 5%;
+    border: 2px solid black;
+    font-weight: bold;
+    font-size:x-large;
+    a {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid rgb(114, 112, 112);
+    }
+    a:hover {
+      border: 3px solid rgb(246, 3, 3);
+    }
+    .ajouter {
+      width: 80%;
+      margin: auto;
+      margin-bottom: 0px;
+    }
+
+    wcs-button {
+      width: 80%;
+      margin: auto;
+      margin-bottom: 15px;
+      font-weight: bold;
+      font-size: large;
+    }
+  }
+
+
+}
+
+.dialogSupp, .dialogAjout {
+  margin: auto;
+  padding: 20px;
+  border: 6px solid rgb(246, 3, 3);
+  border-radius: 8px;
+  max-width: 500px;
+  background-color: rgb(223, 127, 127);
+
+  .label {
+    font-weight: bold;
+    font-size: x-large;
+    text-align: center;
+  }
+
+  .input {
+    display: inline-block;
+    text-align: center;
+    margin: auto 20%;
+    font-weight: bold;
+    font-size: x-large;
+    width: 60%;
+    text-transform: uppercase;
+  }
+
+  .boutonsDialog {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    margin-top: 40px;
+  }
+  .boutonsAlerte {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    margin-top: 40px;
+  }
+}
+
+.dialogAjout {
+  border: 2px solid rgb(2, 2, 2);
+  background-color: rgb(134, 220, 144);
+}
+
+.dialogSupp::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+.superR2N {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80%;
+  width: 20%;
+  margin: 20px;
+  border-radius: 5%;
+  border: 2px solid black;
+  font-weight: bold;
+  font-size:x-large;
+  a {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 80%;
+    margin: 5px auto;
+    border: 1px solid rgb(114, 112, 112);
+  }
+  a:hover {
+    border: 3px solid rgb(246, 3, 3);
+  }
+  .ajouter {
+    width: 80%;
+    margin: auto;
+    margin-bottom: 0px;
+  }
+  wcs-button {
+    width: 80%;
+    margin: auto;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: large;
+  }
+}

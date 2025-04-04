@@ -1,0 +1,111 @@
+<body>
+  <div class="entete">
+    <div class="titre">
+      <h1>Heures SUP / ASTREINTE</h1>
+    </div>
+
+    @if(modifier === false){
+    <div class="modifier">
+      <wcs-button class="btn-modifier wcs-critical" size="l" (click)="ouvreSelectAModifier()">Modifier</wcs-button>
+    </div>} @else {
+    <div class="modifier">
+      <wcs-button class="btn-modifier wcs-critical" size="l" (click)="supprime()">Supprimer</wcs-button>
+    </div>}
+  </div>
+  <div class="date">
+    <div class="datedebut">
+      <wcs-label class="label-date">Date de début</wcs-label>
+      <wcs-input class="custom-input" (ngModelChange)="onDateDebutChange($event)" placeholder="Placeholder" type="date" [(ngModel)]="dateDebut" [disabled]="modifier">
+      </wcs-input>
+      <div class="horaire">
+        <input [ngxTimepicker]="toggleTimepickerDebut" [(ngModel)]="heureDebut" [format]="24" [disableClick]="false" readonly>
+        <ngx-material-timepicker-toggle [for]="toggleTimepickerDebut"></ngx-material-timepicker-toggle>
+        <ngx-material-timepicker [minutesGap]="15" (timeChanged)="onTimeDChange($event)" #toggleTimepickerDebut></ngx-material-timepicker>
+      </div>
+      <div class="label-heure">
+        <wcs-label class="label-heure">Heure de début</wcs-label>
+      </div>
+    </div>
+    <div class="datefin">
+      <wcs-label class="label-date">Date de fin</wcs-label>
+
+      <wcs-input (ngModelChange)="onDateFinChange($event)" placeholder="Placeholder" type="date" class="custom-input" [(ngModel)]="dateFin" value={{dateDebut}} min={{dateDebut}}>
+      </wcs-input>
+      <div class="horaire">
+        <input [ngxTimepicker]="toggleTimepickerFin" [(ngModel)]="heureFin" [format]="24" [min]="heureMinDynamic" [disableClick]="false" readonly>
+        <ngx-material-timepicker-toggle [for]="toggleTimepickerFin"></ngx-material-timepicker-toggle>
+        <ngx-material-timepicker [minutesGap]="15" (timeChanged)="onTimeFChange($event)" #toggleTimepickerFin></ngx-material-timepicker>
+      </div>
+      <div class="label-heure">
+        <wcs-label class="label-heure">Heure de fin</wcs-label>
+      </div>
+    </div>
+    <div class="toogle">
+
+      <div class="switch toggle-titre">
+        <wcs-switch [(ngModel)]="ast" (wcsChange)="categorie('astreinte')">Astreinte.</wcs-switch>
+      </div>
+
+      <div class="switch toggle-titre">
+        <wcs-switch [(ngModel)]="hsup" (wcsChange)="categorie('hsup')">H Sup.</wcs-switch>
+      </div>
+      <div>
+        @if(cadeau === false){<button class="buttonCadeau" matTooltip="H déclarée">
+          <mat-icon class="cadeauOK" (click)="categorie('cadeau')">edit</mat-icon>
+        </button>} @else {
+        <button class="buttonCadeau" matTooltip="H non déclarée">
+          <mat-icon class="cadeauKO" (click)="categorie('cadeau')">edit_off</mat-icon>
+        </button>}
+      </div>
+    </div>
+  </div>
+  <div class="pavé-milieu">
+    <wcs-label class="label-commentaire">Commentaire</wcs-label>
+    <wcs-textarea [(ngModel)]="commentaire" class="commentaire" placeholder="Vous pouvez ajouter un commentaire" rows="15">
+    </wcs-textarea>
+  </div>
+  <div class="pavé-inférieur">
+    <div class="résumé">
+      <div class="div-label">
+        <wcs-label class="label-résumé">Récapitulatif des heures d'astreinte</wcs-label>
+      </div>
+      <div class="div-label">
+        <wcs-label class="label-astreinte">Sur cette page de saisie : </wcs-label>
+        <wcs-label class="label-astreinte-valeur">
+          {{heureSaisie}}
+        </wcs-label>
+        <wcs-label class="label-astreinte">
+          {{plusieurJours}}
+        </wcs-label>
+      </div>
+      <div class="div-label">
+        <wcs-label class="label-astreinte">Depuis le début du mois : </wcs-label>
+        <wcs-label class="label-astreinte-valeur">{{heureDuMois}} </wcs-label>
+      </div>
+      <div class="div-label">
+        <wcs-label class="label-astreinte">Depuis le début d'année : </wcs-label>
+        <wcs-label class="label-astreinte-valeur">{{heureDeLAnnee}}</wcs-label>
+      </div>
+    </div>
+    <div class="valider">
+      @if(modifier === true){
+      <wcs-button class="btn-valider btn-annuler" size="l" (click)="reinitialiseLesChamps()">Annuler</wcs-button>
+      }
+      <wcs-button class="btn-valider" size="l" (click)="valideLesHeuresSup()">{{btnValider}}</wcs-button>
+    </div>
+  </div>
+</body>
+<dialog id="selectAModifier" class="dialogModif">
+  <h1 class="label">Veuillez sélectionner</h1>
+  <h1>la journée que vous voulez modifier</h1>
+  <wcs-native-select size="m">
+    <select name="select-default" id="select-default" [(ngModel)]="jourSelectionne">
+      <option value="" selected>- - -</option>
+      <option *ngFor="let item of tousLesData" value={{item.dateDebut}}>{{datePourLeSelect(item.dateDebut)}}</option>
+    </select>
+  </wcs-native-select>
+  <div class="boutonsAlerte">
+    <wcs-button class="boutonOK" (click)="reinitialiseLesChamps()">Annuler</wcs-button>
+    <wcs-button class="boutonOK" (click)="jourAModifier()">valider</wcs-button>
+  </div>
+</dialog>

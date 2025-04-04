@@ -1,0 +1,345 @@
+<h1>Bienvenue sur la page PARAMETRES</h1>
+<wcs-tabs align="center" gutter="true">
+  <wcs-tab header="Engins" item-key="engins">
+    <div class="principale">
+      <div class="superNG">Rames NG
+        <div class="listeEngin">
+          <div class="NG" *ngFor="let engin of engins">
+            <a *ngIf="engin.type === 'NG'" (click)="ouvreSupprime('engin', engin.numero,'')">
+              {{ engin.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('engin','NG')">Ajouter une rame NG</wcs-button>
+        </div>
+      </div>
+      <div class="superAGC">Rames AGC
+        <div class="listeEngin">
+          <div class="AGC" *ngFor="let engin of engins">
+            <a *ngIf="engin.type === 'AGC'" (click)="ouvreSupprime('engin', engin.numero,'')">
+              {{ engin.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('engin','AGC')">Ajouter une rame AGC</wcs-button>
+        </div>
+      </div>
+      <div class="superR2N">Rames R2N
+        <div class="listeEngin">
+          <div class="R2N" *ngFor="let engin of engins">
+            <a *ngIf="engin.type === 'R2N'" (click)="ouvreSupprime('engin', engin.numero,'')">
+              {{ engin.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('engin','R2N')">Ajouter une rame R2N</wcs-button>
+        </div>
+      </div>
+    </div>
+  </wcs-tab>
+  <wcs-tab header="Voies" item-key="voies">
+    <div class="principale">
+      <div class="superVoie">VOIES
+        <div class="listeVoie">
+          <div class="VOIE" *ngFor="let voie of voies">
+            <a (click)="ouvreSupprime('voie',voie.numero,'')">
+              {{ voie.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('voie','')">Ajouter une nouvelle voie</wcs-button>
+        </div>
+      </div>
+    </div>
+  </wcs-tab>
+  <wcs-tab header="Modules" item-key="modules">
+    <div class="principale">
+      <div class="superNG">MODULES NG
+        <div class="listeEngin">
+          <div class="NG" *ngFor="let module of modules">
+            <a *ngIf="module.type === 'NG'" (click)="ouvreSupprime('module', module.numero,'')">
+              {{ module.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('module','NG')">Ajouter un module NG</wcs-button>
+        </div>
+      </div>
+      <div class="superAGC">MODULES AGC
+        <div class="listeEngin">
+          <div class="AGC" *ngFor="let module of modules">
+            <a *ngIf="module.type === 'AGC'" (click)="ouvreSupprime('module', module.numero,'')">
+              {{ module.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('module','AGC')">Ajouter un module AGC</wcs-button>
+        </div>
+      </div>
+      <div class="superR2N">MODULES R2N
+        <div class="listeEngin">
+          <div class="R2N" *ngFor="let module of modules">
+            <a *ngIf="module.type === 'R2N'" (click)="ouvreSupprime('module', module.numero,'')">
+              {{ module.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('module','R2N')">Ajouter un module R2N</wcs-button>
+        </div>
+      </div>
+    </div>
+  </wcs-tab>
+  <wcs-tab header="Fiacs" item-key="fiacs">
+    <div class="principale">
+      <div class="superNG">FIACS NG
+        <div class="listeEngin">
+          <div class="NG" *ngFor="let fiac of fiacs">
+            <a *ngIf="fiac.type === 'NG'" (click)="ouvreSupprime('fiac', fiac.numero,'')">
+              {{ fiac.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('fiac','NG')">Ajouter un fiac NG</wcs-button>
+        </div>
+      </div>
+      <div class="superAGC">FIACS AGC
+        <div class="listeEngin">
+          <div class="AGC" *ngFor="let fiac of fiacs">
+            <a *ngIf="fiac.type === 'AGC'" (click)="ouvreSupprime('fiac', fiac.numero,'')">
+              {{ fiac.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('fiac','AGC')">Ajouter un fiac AGC</wcs-button>
+        </div>
+      </div>
+      <div class="superR2N">FIACS R2N
+        <div class="listeEngin">
+          <div class="R2N" *ngFor="let fiac of fiacs">
+            <a *ngIf="fiac.type === 'R2N'" (click)="ouvreSupprime('fiac', fiac.numero,'')">
+              {{ fiac.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('fiac','R2N')">Ajouter un fiac R2N</wcs-button>
+        </div>
+      </div>
+    </div>
+  </wcs-tab>
+  <wcs-tab header="OMs" item-key="oms">
+    <div class="principale">
+      <div class="superNG">OM NG
+        <div class="listeEngin">
+          <div class="NG" *ngFor="let om of oms">
+            <a *ngIf="om.type === 'NG'" (click)="ouvreSupprime('om', om.numero,'')">
+              {{ om.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('om','NG')">Ajouter un OM NG</wcs-button>
+        </div>
+      </div>
+      <div class="superAGC">OM AGC
+        <div class="listeEngin">
+          <div class="AGC" *ngFor="let om of oms">
+            <a *ngIf="om.type === 'AGC'" (click)="ouvreSupprime('om', om.numero,'')">
+              {{ om.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('om','AGC')">Ajouter un OM AGC</wcs-button>
+        </div>
+      </div>
+      <div class="superR2N">OM R2N
+        <div class="listeEngin">
+          <div class="R2N" *ngFor="let om of oms">
+            <a *ngIf="om.type === 'R2N'" (click)="ouvreSupprime('om', om.numero,'')">
+              {{ om.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('om','R2N')">Ajouter un OM R2N</wcs-button>
+        </div>
+      </div>
+    </div>
+  </wcs-tab>
+  <wcs-tab header="Firex" item-key="firex">
+    <div class="principale">
+      <div class="superNG">FIREX NG
+        <div class="listeEngin">
+          <div class="NG" *ngFor="let firex of firexs">
+            <a *ngIf="firex.type === 'NG'" (click)="ouvreSupprime('firex', firex.numero,'')">
+              {{ firex.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('firex','NG')">Ajouter un firex NG</wcs-button>
+        </div>
+      </div>
+      <div class="superAGC">FIREX AGC
+        <div class="listeEngin">
+          <div class="AGC" *ngFor="let firex of firexs">
+            <a *ngIf="firex.type === 'AGC'" (click)="ouvreSupprime('firex', firex.numero,'')">
+              {{ firex.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('firex','AGC')">Ajouter un firex AGC</wcs-button>
+        </div>
+      </div>
+      <div class="superR2N">FIREX R2N
+        <div class="listeEngin">
+          <div class="R2N" *ngFor="let firex of firexs">
+            <a *ngIf="firex.type === 'R2N'" (click)="ouvreSupprime('firex', firex.numero,'')">
+              {{ firex.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('firex','R2N')">Ajouter un firex R2N</wcs-button>
+        </div>
+      </div>
+    </div>
+  </wcs-tab>
+  <wcs-tab header="MSU" item-key="msu">
+    <div class="principale">
+      <div class="superNG">Ms_Urgents NG
+        <div class="listeEngin">
+          <div class="NG" *ngFor="let msu of msurgents">
+            <a *ngIf="msu.type === 'NG'" (click)="ouvreSupprime('msu', msu.numero,'')">
+              {{ msu.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('msu','NG')">Ajouter un Ms_urgent NG</wcs-button>
+        </div>
+      </div>
+      <div class="superAGC">Ms_Urgents AGC
+        <div class="listeEngin">
+          <div class="AGC" *ngFor="let msu of msurgents">
+            <a *ngIf="msu.type === 'AGC'" (click)="ouvreSupprime('msu', msu.numero,'')">
+              {{ msu.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('msu','AGC')">Ajouter un Ms_urgent AGC</wcs-button>
+        </div>
+      </div>
+      <div class="superR2N">Ms_Urgents R2N
+        <div class="listeEngin">
+          <div class="R2N" *ngFor="let msu of msurgents">
+            <a *ngIf="msu.type === 'R2N'" (click)="ouvreSupprime('msu', msu.numero,'')">
+              {{ msu.numero }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('msu','R2N')">Ajouter un Ms_urgent R2N</wcs-button>
+        </div>
+      </div>
+    </div>
+  </wcs-tab>
+  <wcs-tab header="Collaborateurs" item-key="agents">
+    <div class="principale">
+      <div class="superVoie">COLLABORATEURS
+        <div class="listeVoie">
+          <div class="AGENTS" *ngFor="let agent of agents">
+            <a (click)="ouvreSupprime('agent', agent.nom, agent.prenom)">
+              {{ agent.nom }} {{agent.prenom}}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('agent','')">Ajouter un collaborateur</wcs-button>
+        </div>
+      </div>
+    </div>
+  </wcs-tab>
+  <wcs-tab header="Spécialités" item-key="specialites">
+    <div class="principale">
+      <div class="superVoie">SPÉCIALITÉS
+        <div class="listeVoie">
+          <div class="VOIE" *ngFor="let specialite of specialites">
+            <a (click)="ouvreSupprime('specialite',specialite.nom,'')">
+              {{ specialite.nom }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('specialite','')">Ajouter une nouvelle spécialité</wcs-button>
+        </div>
+      </div>
+    </div>
+  </wcs-tab>
+  <wcs-tab header="Systèmes" item-key="systemes">
+    <div class="principale">
+      <div class="superVoie">SYSTÈMES
+        <div class="listeVoie">
+          <div class="VOIE" *ngFor="let systeme of systemes">
+            <a (click)="ouvreSupprime('systeme',systeme.nom,'')">
+              {{ systeme.nom }}
+            </a>
+          </div>
+        </div>
+        <div class="ajouter">
+          <wcs-button (click)="ouvreAjout('systeme','')">Ajouter un nouveau système</wcs-button>
+        </div>
+      </div>
+    </div>
+  </wcs-tab>
+</wcs-tabs>
+
+<dialog id="supprime" class="dialogSupp">
+  <h1 class="label">Voulez-vous vraiment</h1>
+  <h1 class="label">SUPPRIMER {{titreASupprimer}}</h1>
+  <h1>{{choseASupprimer}} {{chose2ASupprimer}} ?</h1>
+  <div class="boutonsDialog">
+    <wcs-button class="boutonAnnuler" (click)="fermeSupprime()">Annuler
+    </wcs-button>
+    <wcs-button class="boutonSupprimer" (click)="supprime(onglet, choseASupprimer, chose2ASupprimer)">Supprimer
+    </wcs-button>
+  </div>
+</dialog>
+
+<dialog id="ajout" class="dialogAjout">
+  <h1 class="label">Ajout {{titreAAjouter}} </h1>
+  <h1 class="label">Entrez {{choseAAjouter}} : </h1>
+  <input #Nom class="input" type="text">
+  <ng-container *ngIf="affichage">
+    <h1 class="label">Entrez {{chose2AAjouter}} : </h1>
+    <input #PrenomInput class="input" type="text">
+  </ng-container>
+  <div class="boutonsDialog">
+    <wcs-button class="boutonAnnuler" (click)="fermeAjout()">Annuler
+    </wcs-button>
+    <wcs-button class="boutonAjouter" (click)="ajoute(onglet, Nom.value, typeEngin)">Ajouter
+    </wcs-button>
+  </div>
+</dialog>
+
+<dialog id="AlerteDejaPresent" class="dialogSupp">
+  <h1 class="label">{{alerteTitre}}</h1>
+  <h1>{{alerteChamps1}} {{alerteChamps2}}</h1>
+  <h1 class="label">EXISTE DÉJÀ</h1>
+  <div class="boutonsAlerte">
+    <wcs-button class="boutonOK" (click)="fermeAlerteDejaPresent()">OK
+    </wcs-button>
+  </div>
+</dialog>

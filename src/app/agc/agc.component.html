@@ -1,0 +1,353 @@
+<body>
+  <div class="entete">
+    <div class="titre">
+      <h1>AGC</h1>
+    </div>
+
+    @if(modifier === false){
+    <div class="modifier">
+      <wcs-button class="btn-modifier wcs-critical" size="l" (click)="ouvreSelectAModifier()">Modifier</wcs-button>
+    </div>} @else {
+    <div class="modifier">
+      <wcs-button class="btn-modifier wcs-critical" size="l" (click)="supprime()">Supprimer</wcs-button>
+    </div>}
+  </div>
+  <div class="pavé-supérieur">
+    <div class="selecteur1">
+      <div class="datedebut">
+        <div class="titreDuSelect">
+          <wcs-label class="label-date date">Date</wcs-label>
+        </div>
+        <wcs-input class="custom-input" placeholder="Placeholder" type="date" [(ngModel)]="date" [disabled]="modifier">
+        </wcs-input>
+      </div>
+      <div class="datedebut">
+        <div class="titreDuSelect">
+          <wcs-label class="label-date {{aremplirE}}">Engin</wcs-label>
+        </div>
+        <div class="select">
+          <wcs-native-select>
+            <select name="select-default" id="select-default" [(ngModel)]="engin" (change)="onChangeErreur('E')">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let engin of engins" value={{engin.numero}}>{{engin.numero}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+      </div>
+      <div class="datedebut">
+        <div class="titreDuSelect">
+          <wcs-label class="label-date">Voie</wcs-label>
+        </div>
+        <div class="select">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="voie">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let voie of voies" value={{voie.numero}}>{{voie.numero}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+      </div>
+      <div class="datedebut">
+        <div class="titreDuSelect">
+          <wcs-label class="label-date">Module</wcs-label>
+        </div>
+        <div class="select">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="module">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let module of modules" value={{module.numero}}>{{module.numero}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+      </div>
+      <div class="datedebut">
+        <div class="titreDuSelect">
+          <wcs-label class="label-date">Fiac</wcs-label>
+        </div>
+        <div class="select">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="fiac">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let fiac of fiacs" value={{fiac.numero}}>{{fiac.numero}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+      </div>
+      <div class="datedebut">
+        <div class="titreDuSelect">
+          <wcs-label class="label-date">Om</wcs-label>
+        </div>
+        <div class="select">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="om">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let om of oms" value={{om.numero}}>{{om.numero}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+      </div>
+      <div class="datedebut">
+        <div class="titreDuSelect">
+          <wcs-label class="label-date">Firex</wcs-label>
+        </div>
+        <div class="select">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="firex">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let firex of firexs" value={{firex.numero}}>{{firex.numero}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+      </div>
+      <div class="datedebut">
+        <div class="titreDuSelect">
+          <wcs-label class="label-date">Ms Urgent</wcs-label>
+        </div>
+        <div class="select">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="msurgent">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let msu of msurgents" value={{msu.numero}}>{{msu.numero}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+      </div>
+    </div>
+    <div class="selecteur2">
+
+      <div class="bloc">
+        <wcs-label class="label-date agent {{aremplirA}}">Agent</wcs-label>
+        <wcs-label class="specialite">Spécialité</wcs-label>
+        <wcs-label class="label-date heure">Heure</wcs-label>
+        <wcs-label class="label-date jour">jour</wcs-label>
+      </div>
+      <div class="bloc">
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="agent1" (change)="onChangeErreur('A1')">
+              <option value="" selected>Agent 1</option>
+              <option *ngFor="let agent of agents" value={{agent.nom}}>{{agent.nom}}
+                {{agent.prenom}}
+              </option>
+            </select>
+          </wcs-native-select>
+        </div>
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="specialite1" [disabled]="agent1Valide" (change)="onChangeErreur('A1')">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let spec of specialites" value={{spec.nom}}>{{spec.nom}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+
+
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="heure1" [disabled]="agent1Valide" (change)="onChangeErreur('A1')">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let heure of heures" value={{heure}}>{{heure}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="jour1" [disabled]="agent1Valide" (change)="onChangeErreur('A1')">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let jour of jours" value={{jour}}>{{jour}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+
+      </div>
+      <div class="bloc">
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="agent2" [disabled]="agent1Valide" (change)="onChangeErreur('A2')">
+              <option value="" selected>Agent 2</option>
+              <option *ngFor="let agent of agents" value={{agent.nom}}>{{agent.nom}}
+                {{agent.prenom}}
+              </option>
+            </select>
+          </wcs-native-select>
+        </div>
+
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="specialite2" [disabled]="agent2Valide" (change)="onChangeErreur('A2')">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let spec of specialites" value={{spec.nom}}>{{spec.nom}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="heure2" [disabled]="agent2Valide" (change)="onChangeErreur('A2')">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let heure of heures" value={{heure}}>{{heure}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="jour2" [disabled]="agent2Valide" (change)="onChangeErreur('A2')">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let jour of jours" value={{jour}}>{{jour}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+
+      </div>
+      <div class="bloc">
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="agent3" [disabled]="agent2Valide" (change)="onChangeErreur('A3')">
+              <option value="" selected>Agent 3</option>
+              <option *ngFor="let agent of agents" value={{agent.nom}}>{{agent.nom}}
+                {{agent.prenom}}
+              </option>
+            </select>
+          </wcs-native-select>
+        </div>
+
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="specialite3" [disabled]="agent3Valide" (change)="onChangeErreur('A3')">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let spec of specialites" value={{spec.nom}}>{{spec.nom}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="heure3" [disabled]="agent3Valide" (change)="onChangeErreur('A3')">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let heure of heures" value={{heure}}>{{heure}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="jour3" [disabled]="agent3Valide" (change)="onChangeErreur('A3')">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let jour of jours" value={{jour}}>{{jour}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+
+      </div>
+      <div class="bloc">
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="agent4" [disabled]="agent3Valide" (change)="onChangeErreur('A4')">
+              <option value="" selected>Agent 4</option>
+              <option *ngFor="let agent of agents" value={{agent.nom}}>{{agent.nom}}
+                {{agent.prenom}}
+              </option>
+            </select>
+          </wcs-native-select>
+        </div>
+
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="specialite4" [disabled]="agent4Valide" (change)="onChangeErreur('A4')">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let spec of specialites" value={{spec.nom}}>{{spec.nom}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="heure4" [disabled]="agent4Valide" (change)="onChangeErreur('A4')">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let heure of heures" value={{heure}}>{{heure}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+
+        <div class="select centrage">
+          <wcs-native-select size="m">
+            <select name="select-default" id="select-default" [(ngModel)]="jour4" [disabled]="agent4Valide" (change)="onChangeErreur('A4')">
+              <option value="" selected>- - -</option>
+              <option *ngFor="let jour of jours" value={{jour}}>{{jour}}</option>
+            </select>
+          </wcs-native-select>
+        </div>
+
+      </div>
+      <div class="bloc">
+        <div class="blocAGC">
+          <!-- <wcs-checkbox class="selectbas" name="checkbox-id" label-alignment="center">
+          </wcs-checkbox>
+          <wcs-label class="label-checkbox">R2N</wcs-label> -->
+        </div>
+        <div class="toogle">
+          <div class="switch toggle-titre">
+            <wcs-switch class="{{aremplirD}}" [(ngModel)]="depannage" (click)="onChangeErreur('D')">Dépannage.</wcs-switch>
+          </div>
+          <div class=" switch toggle-titre">
+            <wcs-switch class="{{aremplirP}}" [(ngModel)]="pointage" (click)="onChangeErreur('P')">Pointage.</wcs-switch>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class=" bloc">
+    <div class="menubas">
+      <wcs-label class="label-date titreselectbas">Système</wcs-label>
+      <select name="select-systeme" id="selectSysteme" class="selectSysteme" [(ngModel)]="systeme">
+        <option value="" selected>- - -</option>
+        <option *ngFor="let syst of systemes" value={{syst.nom}}>{{syst.nom}}</option>
+      </select>
+      <wcs-checkbox class="selectbas" name="checkbox-encours" label-alignment="center" [(ngModel)]="en_cours">
+      </wcs-checkbox>
+      <wcs-label class="label-checkbox">En cours</wcs-label>
+      <wcs-checkbox class="selectbas" name="checkbox-valide" label-alignment="center" [(ngModel)]="valide">
+      </wcs-checkbox>
+      <wcs-label class="label-checkbox">Validé</wcs-label>
+      <wcs-checkbox class="selectbas" name="checkbox-dsmat" label-alignment="center" [(ngModel)]="dsmat">
+      </wcs-checkbox>
+      <wcs-label class="label-checkbox">DSMAT</wcs-label>
+      <wcs-checkbox class="selectbas" name="checkbox-gmat" label-alignment="center" [(ngModel)]="osmose">
+      </wcs-checkbox>
+      <wcs-label class="label-checkbox">OSMOSE</wcs-label>
+    </div>
+  </div>
+  <div class="pavé-milieu">
+    <wcs-label class="label-commentaire">Commentaire</wcs-label>
+    <wcs-textarea class="commentaire" placeholder="Vous pouvez ajouter un commentaire" rows="13" [(ngModel)]="commentaire">
+    </wcs-textarea>
+  </div>
+  <div class="pavé-inférieur">
+
+    <div class="valider">
+      @if(modifier === true){
+      <wcs-button class="btn-valider btn-annuler" size="l" (click)="reinitialiseLesChamps()">Annuler</wcs-button>
+      }
+      <wcs-button class="btn-valider" size="l" (click)="valideLaJourneeAgc()">{{btnValider}}</wcs-button>
+    </div>
+  </div>
+</body>
+<dialog id="selectAModifier" class="dialogModif">
+  <h1 class="label">Veuillez sélectionner</h1>
+  <h1>la journée que vous voulez modifier</h1>
+  <button class="mois-precedent {{moisprecedent}}" (click)="moisSelectionne('precedent')">mois précédent</button>
+  <button class="mois-encours {{moisencours}}" (click)="moisSelectionne('encours')">mois en cours</button>
+  <wcs-native-select size="m">
+    <select name="select-default" id="select-default" [(ngModel)]="jourSelectionne">
+      <option value="" selected>- - -</option>
+      <option *ngFor="let item of listeDesMoisSelectionne" [value]="item.date">{{datePourLeSelect(item.date, moisSelect)}}</option>
+    </select>
+  </wcs-native-select>
+  <div class="boutonsAlerte">
+    <wcs-button class="boutonOK" (click)="fermeSelectAModifier()">Annuler</wcs-button>
+    <wcs-button class="boutonOK" (click)="jourAModifier()">Valider</wcs-button>
+  </div>
+</dialog>

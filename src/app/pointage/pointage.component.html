@@ -1,0 +1,46 @@
+<body>
+  <h1>POINTAGE</h1>
+  <div>
+    <h1 class="moisAnnee">{{titreNomDuMois}} {{anneeEnCours}}</h1>
+    <wcs-button class="btn-prec" (click)="moisPrecedent()">préc.</wcs-button>
+    <wcs-button class=" btn-actuel" (click)="moisActuel()">en cours</wcs-button>
+    <wcs-button class="btn-suiv" (click)="moisSuivant()">suiv.</wcs-button>
+    <div class="ligneDesNomDuJour">
+      <div *ngFor="let item of nomJour" class="nomDuJour {{item}}">{{item}}</div>
+    </div>
+    <div id="calendar" *ngFor="let item of semaines">
+      <div class="semaine">{{numeroDeLaSemaine(item)}}
+        <div class="jour" *ngFor="let jour of jours[item]; index as i" (click)="ouvreModal(nomJour[i],jour)">
+          <div class="numeroJour" [ngClass]="getColorJour(nomJour[i],jour, astreinte)">{{jour}}</div>
+          <div class="travailJour">
+            {{ 'NUIT' | afficheNomJour: jour }}
+          </div>
+          <div [ngClass]="afficheHeures(jour)">
+            {{ heureDebutEtFin(jour) | afficheNomJour: jour }}
+          </div>
+          <div [ngClass]="afficheCommentaire(jour)">
+            Commentaire
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<dialog id="modal" class="dialogModal">
+  <h1 class="label">{{dateAAfficherModal}} </h1>
+  <div class="travail">Travaillé de NUIT</div>
+  <div [ngClass]="classHsupModal">
+    <h3>{{titreHsupAAfficherModal}}
+      <pre>{{texteHsupAAfficherModal}}</pre>
+    </h3>
+  </div>
+  <div [ngClass]="classCommentaire">
+    <h3>{{titreCommentaireAAfficherModal}}
+      <pre>{{commentairesAAfficherModal}}</pre>
+    </h3>
+  </div>
+
+  <div class="boutonsAlerte">
+    <wcs-button class="boutonOK" (click)="fermeModal()">OK</wcs-button>
+  </div>
+</dialog>

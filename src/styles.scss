@@ -1,0 +1,11 @@
+@use "angular-calendar/scss/angular-calendar.scss";
+@use "wcs-core/dist/wcs/wcs.css";
+@use "wcs-core/design-tokens/dist/sncf-voyageurs.css";
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+/* You can add global styles to this file, and also import other style files */
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: avenir-black, sans-serif;
+}

@@ -1,0 +1,47 @@
+.navbar {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  .bouton {
+    height: 105px;
+    width: 99px;
+    margin-top: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    border: 0px #065654;
+    background-color: #065654;
+    color: azure;
+    cursor: pointer;
+  }
+  .bouton:hover {
+    color: black;
+  }
+  .active {
+    background-color: #002b28;
+  }
+  .button {
+    margin: 0;
+    padding: 0;
+    height: 70px;
+    width: 80px;
+    font-size: 80px;
+    color: azure;
+  }
+
+  .button:hover {
+    color: black;
+  }
+  p {
+    font-size: 15px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.custom-tooltip .mdc-tooltip__surface {
+  color: azure !important;  /* 🔥 Change la couleur du texte */
+  background-color: #065654 !important; /* Optionnel : change la couleur du fond */
+  font-weight: bold; /* Optionnel : rend le texte plus visible */
+  font-size: large;
+}

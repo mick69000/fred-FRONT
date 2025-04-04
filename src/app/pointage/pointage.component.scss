@@ -1,0 +1,164 @@
+body {
+  background-color: rgb(219, 241, 243);
+}
+
+h1 {
+  margin-top: 0;
+  text-align: center;
+}
+.moisAnnee {
+  color: #065654;
+  text-decoration-line: overline;
+  text-decoration-thickness: 5px;
+}
+.calendar {
+  display: flex;
+  flex-direction: column;
+}
+.semaine {
+  display: flex;
+  flex-direction: row;
+  margin: 1% 60px;
+}
+.jour {
+  width: 13%;
+  height: 130px;
+  border: 1px solid black;
+  margin-left: 15px;
+}
+.cacher {
+  border: none;
+}
+
+.numeroJour,
+.travailJour,
+.horaireJour,
+.heuresup,
+.heureast,
+.commentaireJour
+{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 25%;
+  width: 100%;
+}
+.commentaireJour {
+  background-color: rgb(77, 77, 249);
+  color: white;
+}
+.sans-commentaireJour,
+.sans-horaireJour {
+  margin-top: 5%;
+  visibility: hidden;
+}
+.heuresup {
+background-color: rgb(172, 197, 244);
+color: black;
+}
+.heureast {
+background-color:rgb(245, 209, 165);
+color: black;
+}
+.horaireJour {
+  background-color: rgb(191, 239, 243);
+  color: red;
+}
+.numeroJour {
+  height: 20%;
+}
+.travailJour {
+  margin-top: 5%;
+}
+.ligneDesNomDuJour {
+  display: flex;
+  flex-direction: row;
+}
+.nomDuJour {
+  display: flex;
+  justify-content: space-around;
+  width: 11.5%;
+  height: 20px;
+  margin: 5% 0 1% 15px;
+}
+.LUNDI {
+  margin-left: 95px;
+}
+.we {
+  background-color: aquamarine;
+}
+.A {
+  border: 0.1px solid red;
+  border-bottom-style: solide;
+  border-bottom-color: red;
+  border-bottom-width: 5px;
+}
+.weA {
+  background-color: aquamarine;
+  border: 0.1px solid red;
+  border-bottom-style: solide;
+  border-bottom-color: red;
+  border-bottom-width: 5px;
+}
+.btn-prec {
+  margin-left: 100px;
+}
+.btn-actuel,
+.btn-suiv {
+  margin-left: 10px;
+}
+.dialogModal {
+  background-color: rgb(219, 241, 243);
+}
+.heureSuplémentaire,
+.heureAstreinte,
+.heureCadeau {
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 25px;
+  font-size: large;
+}
+.heureSuplémentaire{
+background-color: rgb(172, 197, 244);
+}
+.heureAstreinte{
+background-color: rgb(245, 209, 165);
+}
+.heureCadeau {
+  background-color: rgb(191, 239, 243);
+}
+.commentaire {
+  margin-top: 5px;
+  border: 1px solid rgb(175, 8, 8);
+  padding: 5px;
+  border-radius: 25px;
+  background-color: rgb(77, 77, 249);
+  color: white;
+  font-size: large;
+}
+.nocommentaire,
+.noheure {
+  border: none;
+  padding: 5px;
+  border-radius: 25px;
+  background-color: rgb(219, 241, 243);
+  color: rgb(219, 241, 243);
+}
+.boutonOK {
+  margin: 20px 40%;
+}
+.travail{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5%;
+  font-size: x-large;
+}
+h3 {
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+}
+pre {
+  text-decoration-line: none ;
+  text-decoration-thickness: 0;
+
+}
