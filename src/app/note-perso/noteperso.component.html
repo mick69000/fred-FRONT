@@ -1,0 +1,91 @@
+<body>
+  <div class="entete">
+    <div class="titre">
+      <h1>Note Perso</h1>
+    </div>
+  </div>
+  <div class="pavé-supérieur">
+    <div class="selecteur1">
+      <div class="datedebut">
+        <div class="titreDuSelect">
+          <wcs-label class="label-date date">Date</wcs-label>
+        </div>
+        <wcs-input class="custom-input" placeholder="Placeholder" type="date" [(ngModel)]="date" [disabled]="modifier">
+        </wcs-input>
+        <div class="bouton" matTooltip="Rechercher" matTooltipPosition="right" (click)="rechercheLesNotesDuJourSelectionne()">
+          <mat-icon class="button">search</mat-icon>
+        </div>
+      </div>
+    </div>
+    <div class="pavé-milieu">
+      <div class="barreDuCompteur">
+        <wcs-counter class="compteur" [(ngModel)]="numeroNote" label="Number of note-Perso" min="{{compteurMinimum}}" max="{{nbrNote}}" [disabled]="compteur"></wcs-counter>
+        <h2> / {{nbrNote}}</h2>
+      </div>
+      <div class="pave-input">
+        <wcs-label class="label-commentaire">Commentaire</wcs-label>
+        <input id="titreDeLaNote" [autocapitalize]="true" placeholder="Entrer un titre (obligatoire)" [(ngModel)]="titre[numeroNote - 1]" [disabled]="commentaireAModifier">
+        <textarea id="commentaire" placeholder="Vous devez ajouter un commentaire (obligatoire)" rows="15" [(ngModel)]="commentaire[numeroNote - 1]" [disabled]="commentaireAModifier">
+        </textarea>
+      </div>
+    </div>
+    <div class="pavé-inférieur">
+
+      <div class="valider">
+        @if(afficheLesBoutonsModifier === true){
+        <wcs-button class="btn-valider btn-annuler" size="l" (click)="reinitialiseLesChamps()">Annuler</wcs-button>
+        <wcs-button class="btn-valider btn-effacer" size="l" (click)="ouvreConfirmeSupprime()">Supprimer</wcs-button>
+        }
+        <wcs-button class="btn-valider" size="l" (click)="valideOuMaj(titre[numeroNote-1], commentaire[numeroNote-1])" [disabled]="commentaireAModifier">{{btnValider}}</wcs-button>
+      </div>
+    </div>
+  </div>
+</body>
+
+
+
+
+<dialog id="alerteDejaPresent" class="dialogModif">
+  <h1 class="label">Une(des) note(s)-Perso existe déjà pour la journée du</h1>
+  <h1>{{date}}</h1>
+  <h1>Voulez-vous la modifier ou en ajouter une nouvelle ?</h1>
+
+  <div class="boutonsAlerte">
+    <wcs-button class="boutonOK" (click)="fermeAnnuleDejaPresent()">Annuler</wcs-button>
+    <wcs-button class="boutonOK" (click)="jourAModifier()">Modifier</wcs-button>
+    <wcs-button class="boutonOK" (click)="nouvelleNote()">Nouvelle</wcs-button>
+  </div>
+</dialog>
+
+<dialog id="noteEstSupprime" class="dialogEstSupp">
+  <h1 class="label">La note-perso n° {{numeroNote}} du</h1>
+  <h1 class="label">{{date}}</h1>
+  <h3 class="label">a été SUPPRIMÉE avec succes</h3>
+  <h1> ?</h1>
+  <div class="boutonsDialog">
+    <wcs-button class="boutonAnnuler" (click)="fermeEstSupprime()">OK
+    </wcs-button>
+  </div>
+</dialog>
+
+<dialog id="noteAjoute" class="dialogAjoute">
+  <h1 class="label">La note a été ajoutée avec succes</h1>
+  <div class="boutonsAlerte">
+    <wcs-button class="boutonOK" (click)="fermeAjoute()">OK
+    </wcs-button>
+  </div>
+</dialog>
+
+<dialog id="confirmeSupprime" class="dialogConfirmSupp">
+  <div class="texteModal">
+    <h1 class="label">Voulez-vous vraiment</h1>
+    <h1 class="label">SUPPRIMER la note-perso n° {{numeroNote}}</h1>
+    <h1 class="label">de la journée du {{dateVF(date)}}</h1>
+  </div>
+  <div class="boutonsAlerte">
+    <wcs-button class="boutonOK" (click)="fermeConfirmeSupprime()">NON
+    </wcs-button>
+    <wcs-button class="boutonOK" (click)="supprimeUneNote(date, numeroNote -1)">Confirmer
+    </wcs-button>
+  </div>
+</dialog>

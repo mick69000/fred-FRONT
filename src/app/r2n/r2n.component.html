@@ -164,7 +164,7 @@
       <div class="bloc">
         <div class="select centrage">
           <wcs-native-select size="m">
-            <select name="select-default" id="select-default" [(ngModel)]="agent2" (change)="onChangeErreur('A2')">
+            <select name="select-default" id="select-default" [(ngModel)]="agent2" [disabled]="agent2Valide" (change)="onChangeErreur('A2')">
               <option value="" selected>Agent 2</option>
               <option *ngFor="let agent of agents" value={{agent.nom}}>{{agent.nom}}
                 {{agent.prenom}}
@@ -279,22 +279,6 @@
             </select>
           </wcs-native-select>
         </div>
-
-      </div>
-      <div class="bloc">
-        <div class="blocAGC">
-          <!-- <wcs-checkbox class="selectbas" name="checkbox-id" label-alignment="center">
-          </wcs-checkbox>
-          <wcs-label class="label-checkbox">R2N</wcs-label> -->
-        </div>
-        <div class="toogle">
-          <div class="switch toggle-titre">
-            <wcs-switch class="{{aremplirD}}" [(ngModel)]="depannage" (click)="onChangeErreur('D')">Dépannage.</wcs-switch>
-          </div>
-          <div class=" switch toggle-titre">
-            <wcs-switch class="{{aremplirP}}" [(ngModel)]="pointage" (click)="onChangeErreur('P')">Pointage.</wcs-switch>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -343,7 +327,7 @@
   <wcs-native-select size="m">
     <select name="select-default" id="select-default" [(ngModel)]="jourSelectionne">
       <option value="" selected>- - -</option>
-      <option *ngFor="let item of listeDesMoisSelectionne" [value]="item.date">{{datePourLeSelect(item.date, moisSelect)}}</option>
+      <option *ngFor="let item of listeDesMoisSelectionne" [value]="item.date">{{datePourLeSelect(item.date, moisSelect)}} ----- ENGIN N° - {{item.engin}}</option>
     </select>
   </wcs-native-select>
   <div class="boutonsAlerte">

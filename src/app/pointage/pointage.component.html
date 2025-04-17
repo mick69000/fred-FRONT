@@ -1,10 +1,14 @@
 <body>
   <h1>POINTAGE</h1>
   <div>
-    <h1 class="moisAnnee">{{titreNomDuMois}} {{anneeEnCours}}</h1>
-    <wcs-button class="btn-prec" (click)="moisPrecedent()">préc.</wcs-button>
-    <wcs-button class=" btn-actuel" (click)="moisActuel()">en cours</wcs-button>
-    <wcs-button class="btn-suiv" (click)="moisSuivant()">suiv.</wcs-button>
+    <div class="titreAvecBoutons">
+      <div class="boutons">
+        <wcs-button class="btn-prec" (click)="moisPrecedent()">préc.</wcs-button>
+        <wcs-button class=" btn-actuel" (click)="moisActuel()">en cours</wcs-button>
+        <wcs-button class="btn-suiv" (click)="moisSuivant()">suiv.</wcs-button>
+      </div>
+      <h1 class="moisAnnee">{{titreNomDuMois}} {{anneeEnCours}}</h1>
+    </div>
     <div class="ligneDesNomDuJour">
       <div *ngFor="let item of nomJour" class="nomDuJour {{item}}">{{item}}</div>
     </div>
@@ -14,6 +18,9 @@
           <div class="numeroJour" [ngClass]="getColorJour(nomJour[i],jour, astreinte)">{{jour}}</div>
           <div class="travailJour">
             {{ 'NUIT' | afficheNomJour: jour }}
+          </div>
+          <div [ngClass]="afficheNotePerso(jour)">
+            {{ calculeNbrNotePourCeJour(jour)}}
           </div>
           <div [ngClass]="afficheHeures(jour)">
             {{ heureDebutEtFin(jour) | afficheNomJour: jour }}
@@ -29,14 +36,29 @@
 <dialog id="modal" class="dialogModal">
   <h1 class="label">{{dateAAfficherModal}} </h1>
   <div class="travail">Travaillé de NUIT</div>
+  <div [ngClass]="classNotePerso">
+    <h3>{{titreNotePersoAAfficherModal}}
+      <pre>{{notePersoAAfficherModal}}</pre>
+    </h3>
+  </div>
   <div [ngClass]="classHsupModal">
     <h3>{{titreHsupAAfficherModal}}
       <pre>{{texteHsupAAfficherModal}}</pre>
     </h3>
   </div>
-  <div [ngClass]="classCommentaire">
-    <h3>{{titreCommentaireAAfficherModal}}
-      <pre>{{commentairesAAfficherModal}}</pre>
+  <div [ngClass]="classCommentaireNg">
+    <h3>{{titreCommentaireNgAAfficherModal}}
+      <pre>{{commentairesNgAAfficherModal}}</pre>
+    </h3>
+  </div>
+  <div [ngClass]="classCommentaireAgc">
+    <h3>{{titreCommentaireAgcAAfficherModal}}
+      <pre>{{commentairesAgcAAfficherModal}}</pre>
+    </h3>
+  </div>
+  <div [ngClass]="classCommentaireR2n">
+    <h3>{{titreCommentaireR2nAAfficherModal}}
+      <pre>{{commentairesR2nAAfficherModal}}</pre>
     </h3>
   </div>
 

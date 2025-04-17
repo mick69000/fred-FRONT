@@ -10,6 +10,7 @@ import { NgComponent } from './ng/ng.component';
 import { R2nComponent } from './r2n/r2n.component';
 import { SearchComponent } from './search/search.component';
 import { ParametresComponent } from './parametres/parametres.component';
+import { NotePersoComponent } from './note-perso/noteperso.component';
 
 export const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
@@ -22,5 +23,6 @@ export const routes: Routes = [
   { path: 'r2n', component: R2nComponent },
   { path: 'search', component: SearchComponent },
   { path: 'parametres', component: ParametresComponent },
+  { path: 'note-perso', component: NotePersoComponent },
   { path: '', component: ErrorComponent },
 ];

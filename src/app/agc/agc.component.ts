@@ -130,8 +130,6 @@ export class AgcComponent implements OnInit {
   jour2: string = '';
   jour3: string = '';
   jour4: string = '';
-  depannage: boolean = false;
-  pointage: boolean = false;
   en_cours: boolean = false;
   valide: boolean = false;
   dsmat: boolean = false;
@@ -181,7 +179,6 @@ export class AgcComponent implements OnInit {
       this.lesEngins,
       (data) => (this.engins = data)
     );
-    console.log('je rafraichi les donnees');
 
     this.récupèreLesSetterDUnType(
       this.lesModules,
@@ -246,11 +243,6 @@ export class AgcComponent implements OnInit {
     });
   }
 
-  // formatDate(date: string): string {
-  //   const [day, month, year] = date.split('/');
-  //   return `${day}-${month}-${year}`;
-  // }
-
   datePourLeSelect(dateBrute: string, selection: string) {
     const [day, month, year] = dateBrute.split('-');
     if (selection != 'precedent') {
@@ -299,8 +291,6 @@ export class AgcComponent implements OnInit {
       this.jour2,
       this.jour3,
       this.jour4,
-      this.depannage,
-      this.pointage,
       this.en_cours,
       this.valide,
       this.dsmat,
@@ -309,24 +299,16 @@ export class AgcComponent implements OnInit {
       this.communService.récupèreLeMoisEtLAnnée(this.date.toString())[1]
     );
     if (this.date !== '' && this.engin !== '' && this.agent1 !== '') {
-      if (this.depannage === true || this.pointage === true) {
-        if (this.btnValider === 'Modifier') {
-          this.dataAgcService.deleteAgc(this.date).subscribe(() => {});
-        }
-        this.dataAgcService.setAgc(journéeAAjouter).subscribe({
-          next: () => {
-            alert('journée enregistrée....');
-            this.récupèreTousLesJoursDeLaBDD();
-            this.reinitialiseLesChamps();
-          },
-        });
-      } else {
-        this.aremplirD =
-          this.depannage === false && this.pointage === false ? 'aRemplir' : '';
-        this.aremplirP =
-          this.depannage === false && this.pointage === false ? 'aRemplir' : '';
-        alert('Veuillez choisr `Depannage` et/ou `Pointage`');
+      if (this.btnValider === 'Modifier') {
+        this.dataAgcService.deleteAgc(this.date).subscribe(() => {});
       }
+      this.dataAgcService.setAgc(journéeAAjouter).subscribe({
+        next: () => {
+          alert('journée enregistrée....');
+          this.récupèreTousLesJoursDeLaBDD();
+          this.reinitialiseLesChamps();
+        },
+      });
     } else {
       this.aremplirE = this.engin === '' ? 'aRemplir' : '';
       this.aremplirA = this.agent1 === '' ? 'aRemplir' : '';
@@ -408,8 +390,6 @@ export class AgcComponent implements OnInit {
     this.jour2 = this.journéeAModifier.jour2;
     this.jour3 = this.journéeAModifier.jour3;
     this.jour4 = this.journéeAModifier.jour4;
-    this.depannage = this.journéeAModifier.depannage;
-    this.pointage = this.journéeAModifier.pointage;
     this.en_cours = this.journéeAModifier.en_cours;
     this.valide = this.journéeAModifier.valide;
     this.dsmat = this.journéeAModifier.dsmat;
@@ -452,13 +432,11 @@ export class AgcComponent implements OnInit {
     this.jour2 = '';
     this.jour3 = '';
     this.jour4 = '';
-    this.depannage = false;
-    this.pointage = false;
     this.en_cours = false;
     this.valide = false;
     this.dsmat = false;
     this.osmose = false;
-    this.agent1Valide = false;
+    this.agent1Valide = true;
     this.agent2Valide = this.agent2 === '' ? true : false;
     this.agent3Valide = this.agent3 === '' ? true : false;
     this.agent4Valide = this.agent4 === '' ? true : false;

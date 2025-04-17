@@ -24,9 +24,6 @@ export class DataNgService {
 
     return this.http.post(`${this.apiUrl}/ng/`, journéeAAjouter).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 409) {
-          return throwError(() => new Error('Ce jours est déjà renseigné !'));
-        }
         return throwError(() => new Error('Une erreur est survenue.'));
       })
     );

@@ -27,8 +27,6 @@ export class JournéeEngin {
   jour2: string;
   jour3: string;
   jour4: string;
-  depannage: boolean;
-  pointage: boolean;
   en_cours: boolean;
   valide: boolean;
   dsmat: boolean;
@@ -63,8 +61,6 @@ export class JournéeEngin {
     jour2: string,
     jour3: string,
     jour4: string,
-    depannage: boolean,
-    pointage: boolean,
     en_cours: boolean,
     valide: boolean,
     dsmat: boolean,
@@ -98,8 +94,6 @@ export class JournéeEngin {
     this.jour2 = jour2;
     this.jour3 = jour3;
     this.jour4 = jour4;
-    this.depannage = depannage;
-    this.pointage = pointage;
     this.en_cours = en_cours;
     this.valide = valide;
     this.dsmat = dsmat;
