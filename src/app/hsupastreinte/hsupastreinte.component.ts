@@ -9,7 +9,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DataHsupastService } from '../services/data/data.hsupast.service';
-import { JournéeAAjouter } from '../models/journéeAAjouter';
+import { JournéeAAjouter } from '../models/journéeAAjouter';
 import { CalculHsupService } from '../services/data/calcul.hsupast.service';
 
 @Component({
@@ -66,7 +66,7 @@ export class HsupastreinteComponent implements OnInit {
   heureMin = this.heureDebut;
   commentaire = '';
   plusieurJours: string = '';
-  ast: boolean = false;
+  astreinte: boolean = false;
   hsup: boolean = false;
   cadeau: boolean = false;
   tooltipEnabled = true;
@@ -116,8 +116,9 @@ export class HsupastreinteComponent implements OnInit {
 
   categorie(hsupast: string) {
     this.hsup = hsupast === 'hsup' ? !this.hsup : this.hsup;
-    this.ast = hsupast === 'astreinte' ? !this.ast : this.ast;
+    this.astreinte = hsupast === 'astreinte' ? !this.astreinte : this.astreinte;
     this.cadeau = hsupast === 'cadeau' ? !this.cadeau : this.cadeau;
+    console.log(this.hsup);
   }
 
   diffH(newTimeFin: string | null) {
@@ -190,13 +191,13 @@ export class HsupastreinteComponent implements OnInit {
   }
   valideLesHeuresSup() {
     let journeeAAjouter: JournéeAAjouter = new JournéeAAjouter(
-      this.jourSelectionne,
+      this.dateDebut.replace(/-undefined/g, ''),
       this.heureDebut,
       this.CommunService.récupèreLeMoisEtLAnnée(this.dateDebut)[1],
       this.CommunService.récupèreLeMoisEtLAnnée(this.dateDebut)[0],
       this.dateFin,
-      this.heureFin,
-      this.ast,
+      this.heureFin.replace(/-undefined/g, ''),
+      this.astreinte,
       this.hsup,
       this.cadeau,
       this.commentaire,
@@ -205,7 +206,22 @@ export class HsupastreinteComponent implements OnInit {
       this.heureDeLAnnee
     );
 
-    console.log(journeeAAjouter);
+    console.log(
+      'journée à ajouter ligne 208 : ' +
+        this.dateDebut.replace(/-undefined/g, ''),
+      this.heureDebut,
+      this.CommunService.récupèreLeMoisEtLAnnée(this.dateDebut)[1],
+      this.CommunService.récupèreLeMoisEtLAnnée(this.dateDebut)[0],
+      this.dateFin.replace(/-undefined/g, ''),
+      this.heureFin,
+      this.astreinte,
+      this.hsup,
+      this.cadeau,
+      this.commentaire,
+      this.heureSaisie,
+      this.heureDuMois,
+      this.heureDeLAnnee
+    );
 
     if (this.btnValider === 'Modifier') {
       this.dataHsupService.deleteHsup(this.dateDebut).subscribe(() => {
@@ -255,7 +271,7 @@ export class HsupastreinteComponent implements OnInit {
     this.heureDebut = this.journéeAModifier.heureDebut;
     this.dateFin = this.journéeAModifier.dateFin;
     this.heureFin = this.journéeAModifier.heureFin;
-    this.ast = this.journéeAModifier.astreinte;
+    this.astreinte = this.journéeAModifier.astreinte;
     this.hsup = this.journéeAModifier.hsup;
     this.cadeau = this.journéeAModifier.cadeau;
     this.commentaire = this.journéeAModifier.commentaire;
@@ -281,7 +297,7 @@ export class HsupastreinteComponent implements OnInit {
     this.heureDebut = '12:00';
     this.dateFin = this.dDJB;
     this.heureFin = '12:15';
-    this.ast = false;
+    this.astreinte = false;
     this.hsup = false;
     this.cadeau = false;
     this.commentaire = '';

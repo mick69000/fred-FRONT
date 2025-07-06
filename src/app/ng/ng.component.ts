@@ -16,7 +16,7 @@ import { ApiSpecialiteService } from '../services/api/api.specialites.service';
 import { ApiSystemeService } from '../services/api/api.systemes.service';
 import { ApiVoieService } from '../services/api/api.voies.service';
 import { Observable } from 'rxjs';
-import { JournéeEngin } from '../models/journéeEngin';
+import { JournéeEngin } from '../models/journéeEngin';
 import { DataNgService } from '../services/data/data.ng.service';
 import { CommunService } from '../services/transverse/commun.service';
 

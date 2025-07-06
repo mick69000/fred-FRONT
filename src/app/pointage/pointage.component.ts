@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarMonthModule } from 'angular-calendar';
 import { WcsAngularModule } from 'wcs-angular';
 import { format, getISOWeek, getMonth, getYear } from 'date-fns';
-import { fr } from 'date-fns/locale';
+import { da, fr } from 'date-fns/locale';
 import { DataR2nService } from '../services/data/data.r2n.service';
 import { DataNgService } from '../services/data/data.ng.service';
 import { AfficheNomJourPipe } from '../pipes/affiche-mon-jour.pipe';
@@ -24,7 +24,6 @@ import { NotePerso } from '../models/notePerso';
     CommonModule,
     CalendarMonthModule,
     AfficheNomJourPipe,
-    AfficheCommentairePipe,
   ],
   providers: [],
   templateUrl: './pointage.component.html',
@@ -66,6 +65,7 @@ export class PointageComponent implements OnInit {
   titreCommentaireAgcAAfficherModal: string = '';
   titreCommentaireR2nAAfficherModal: string = '';
   titreNotePersoAAfficherModal: string[][] = [];
+  titreEtNotePersoAAfficherModal: NotePerso[][] = [];
   listeNgMoisEnCours: JournéeEngin[] = [];
   listeAgcMoisEnCours: JournéeEngin[] = [];
   listeR2nMoisEnCours: JournéeEngin[] = [];
@@ -86,6 +86,11 @@ export class PointageComponent implements OnInit {
   notePersoAAfficherModal: string[][] = [];
   nbrNotePourCeJour: string[] = [];
   titrePremiereNote: string[] = [];
+  titreNotePerso: string[] = [];
+  notePersoDuJourAAfficherModal: string[] = [];
+  titreNotePersoDuJourAAfficherModal: string[] = [];
+  titreEtNotePersoDuJourAAfficherModal: string[] = [];
+  titreEtNotePersoAAfficherModalDuJour: NotePerso[] = [];
 
   constructor(
     private dataR2nService: DataR2nService,
@@ -214,10 +219,10 @@ export class PointageComponent implements OnInit {
         for (let index of this.listeNgMoisEnCours) {
           if (date === index.date) {
             this.enginNg[i] = index.engin;
+            this.commentaireNg[i] = this.commentaireNg[i] + index.commentaire;
           }
         }
       }
-      console.log('NG du mois : ', this.listeNgMoisEnCours);
     });
 
     // ****************** commentaires AGC ****************************
@@ -233,10 +238,10 @@ export class PointageComponent implements OnInit {
         for (let index of this.listeAgcMoisEnCours) {
           if (date === index.date) {
             this.enginAgc[i] = index.engin;
+            this.commentaireAgc[i] = this.commentaireAgc[i] + index.commentaire;
           }
         }
       }
-      console.log('AGC du mois : ', this.listeAgcMoisEnCours);
     });
 
     // ****************** commentaires R2N ****************************
@@ -254,10 +259,10 @@ export class PointageComponent implements OnInit {
         for (let index of this.listeR2nMoisEnCours) {
           if (date === index.date) {
             this.enginR2n[i] = index.engin;
+            this.commentaireR2n[i] = this.commentaireR2n[i] + index.commentaire;
           }
         }
       }
-      console.log('R2N du mois : ', this.listeR2nMoisEnCours);
     });
 
     // ****************** Heures Supp ****************************
@@ -283,7 +288,6 @@ export class PointageComponent implements OnInit {
           }
         }
       }
-      console.log('hsup du mois : ', this.hsupast);
     });
 
     // ****************** commentaires NOTE-PERSO ****************************
@@ -301,23 +305,30 @@ export class PointageComponent implements OnInit {
           i + '-' + (this.moisEnCours + 1) + '-' + this.anneeEnCours
         );
 
-        let nbrnote = 0;
+        let nbrnote = 1;
         let premiereNoteDuJour = true;
         for (let index of this.listeNotePerso) {
           if (date === this.communService.dateFrancaise(index.date)) {
-            if (!this.notePersoAAfficherModal[i]) {
-              this.notePersoAAfficherModal[i] = [];
-              this.titreNotePersoAAfficherModal[i] = [];
-            }
+            this.notePersoAAfficherModal[i].push(index.commentaire);
+            this.titreNotePersoAAfficherModal[i].push(index.titre);
+            (this.titreEtNotePersoAAfficherModal[i] =
+              this.titreEtNotePersoAAfficherModal[i] || []).push(
+              new NotePerso(
+                nbrnote,
+                index.date,
+                index.titre,
+                index.commentaire,
+                '',
+                0,
+                0
+              )
+            );
+
             if (premiereNoteDuJour) {
               this.titrePremiereNote[i] = index.titre;
               premiereNoteDuJour = false;
             }
-            this.notePersoAAfficherModal[i][nbrnote] = index.commentaire;
-            this.titreNotePersoAAfficherModal[i][nbrnote] =
-              index.titre || 'bonjour';
             nbrnote++;
-            this.nbrNotePourCeJour[i] = nbrnote.toString();
           }
         }
       }
@@ -327,6 +338,7 @@ export class PointageComponent implements OnInit {
   afficheCommentaire(jour: string) {
     let sAffiche: string = '';
     const index = parseInt(jour);
+
     this.commentaireNg[index] = this.commentaireNg[index] ?? '';
     this.commentaireAgc[index] = this.commentaireAgc[index] ?? '';
     this.commentaireR2n[index] = this.commentaireR2n[index] ?? '';
@@ -339,6 +351,7 @@ export class PointageComponent implements OnInit {
     } else {
       sAffiche = 'commentaireJour';
     }
+
     return sAffiche;
   }
   afficheNotePerso(jour: string) {
@@ -358,20 +371,19 @@ export class PointageComponent implements OnInit {
     let sAffiche = 'sans-horaireJour';
     const index = parseInt(jour);
     if (index > 0 && index < 32) {
-      if (this.hdeb[index]?.length !== 0 && this.hdeb[index] !== undefined) {
-        if (this.hsup[index]) {
+      if (
+        (this.hdeb[index]?.length !== 0 && this.hdeb[index] !== undefined) ||
+        'VIDE'
+      ) {
+        if (this.hsup[index] !== undefined && this.hsup[index] !== false) {
           sAffiche = 'heuresup';
         }
-        if (this.hast[index]) {
+        if (this.hast[index] !== undefined && this.hast[index] !== false) {
           sAffiche = 'heureast';
         }
-        if (this.hkdo[index]) {
+        if (this.hkdo[index] !== undefined && this.hkdo[index] !== false) {
           sAffiche = 'horaireJour';
         }
-      } else {
-        this.hdeb[index] = 'VIDE';
-        this.hfin[index] = 'VIDE';
-        sAffiche = 'sans-horaireJour';
       }
     }
     return sAffiche;
@@ -385,7 +397,7 @@ export class PointageComponent implements OnInit {
     return aAfficher;
   }
 
-  calculeNbrNotePourCeJour(jour: string) {
+  afficheLePremierTitreDuJour(jour: string) {
     let titre: string = '';
     if (
       this.titreNotePersoAAfficherModal[parseInt(jour)] &&
@@ -393,48 +405,32 @@ export class PointageComponent implements OnInit {
     ) {
       titre = this.titreNotePersoAAfficherModal[parseInt(jour)][0];
     }
-
-    const messageRetour =
-      '(' + this.nbrNotePourCeJour[parseInt(jour)] + ') - ' + titre;
-    return messageRetour;
+    return titre;
   }
   ouvreModal(nom: string, jour: string) {
     if (jour !== '') {
-      const index = parseInt(jour);
-      const alaligneNg = this.commentaireNg[index] === '' ? '' : '\n\n';
-      const alaligneAgc = this.commentaireAgc[index] === '' ? '' : '\n\n';
-      this.titreHsupAAfficherModal = '';
-      this.texteHsupAAfficherModal = '';
-      this.titreCommentaireNgAAfficherModal = '';
-      this.titreCommentaireAgcAAfficherModal = '';
-      this.titreCommentaireR2nAAfficherModal = '';
-      this.titreNotePersoAAfficherModal = [];
-      this.commentairesNgAAfficherModal = '';
-      this.commentairesAgcAAfficherModal = '';
-      this.commentairesR2nAAfficherModal = '';
-      this.notePersoAAfficherModal = [];
-      this.classCommentaireNg = 'nocommentaire';
-      this.classCommentaireAgc = 'nocommentaire';
-      this.classCommentaireR2n = 'nocommentaire';
-      this.classHsupModal = 'noheure';
-      this.classNotePerso = 'noNotePerso';
+      const ceJour = parseInt(jour);
+      const alaligneNg = this.commentaireNg[ceJour] === '' ? '' : '\n\n';
+      const alaligneAgc = this.commentaireAgc[ceJour] === '' ? '' : '\n\n';
 
       // ***************************** DATE DU JOUR POUR LE TITRE DE LA MODAL
       this.dateAAfficherModal =
         nom + ' ' + jour + ' ' + this.titreNomDuMois + ' ' + this.anneeEnCours;
       // ***************************** AFFICHE LES NOTE-PERSO SI PRESENT DANS LA MODAL
 
-      // if (this.listeNotePerso.length !== 0) {
-      //   for (let i = 0; i < this.listeNotePerso.length; i++) {
-      //     this.titreNotePersoAAfficherModal[i] = 'titre de la Note Perso:';
-      //     this.notePersoAAfficherModal[i].push(
-      //       this.listeNotePerso[index].commentaire
-      //     );
-      //   }
-      //   console.log('liste notes perso = ', this.listeNotePerso);
-      if (this.notePersoAAfficherModal[index]) {
-        console.log('ligne 423 ', this.notePersoAAfficherModal);
+      this.titreEtNotePersoAAfficherModalDuJour =
+        this.titreEtNotePersoAAfficherModal[ceJour];
 
+      for (let commentaire of this.titreEtNotePersoAAfficherModal[ceJour]) {
+        if (commentaire.commentaire !== '') {
+          this.notePersoDuJourAAfficherModal.push(commentaire.commentaire);
+          this.titreEtNotePersoDuJourAAfficherModal.push(
+            commentaire.titre,
+            commentaire.commentaire
+          );
+        }
+      }
+      if (this.notePersoAAfficherModal[ceJour]) {
         this.classNotePerso = 'notePersoModal';
       } else {
         this.titreNotePersoAAfficherModal = [];
@@ -442,58 +438,68 @@ export class PointageComponent implements OnInit {
       }
       // ***************************** AFFICHE LE(s) COMMENTAIRE(s) DES HEURES SUP SI PRESENT DANS LA MODAL
 
-      if (this.hsup[index] || this.hast[index] || this.hkdo[index]) {
-        this.titreHsupAAfficherModal = this.hsup[index]
+      if (this.hsup[ceJour] || this.hast[ceJour] || this.hkdo[ceJour]) {
+        this.titreHsupAAfficherModal = this.hsup[ceJour]
           ? 'Heures supplémentaires :'
           : this.titreHsupAAfficherModal;
-        this.titreHsupAAfficherModal = this.hast[index]
+        this.titreHsupAAfficherModal = this.hast[ceJour]
           ? "Heures supplémentaire d'astreinte :"
           : this.titreHsupAAfficherModal;
-        this.titreHsupAAfficherModal = this.hkdo[index]
+        this.titreHsupAAfficherModal = this.hkdo[ceJour]
           ? 'Heures supplémentaire non déclarées :'
           : this.titreHsupAAfficherModal;
 
         this.texteHsupAAfficherModal =
           'De ' +
-          this.hdeb[index] +
+          this.hdeb[ceJour] +
           ' à ' +
-          this.hfin[index] +
+          this.hfin[ceJour] +
           '\n\n' +
-          this.hCommentaire[index];
-        this.classHsupModal = this.hsup[index]
+          this.hCommentaire[ceJour];
+        this.classHsupModal = this.hsup[ceJour]
           ? 'heureSuplémentaire'
           : this.classHsupModal;
-        this.classHsupModal = this.hast[index]
+        this.classHsupModal = this.hast[ceJour]
           ? 'heureAstreinte'
           : this.classHsupModal;
-        this.classHsupModal = this.hkdo[index]
+        this.classHsupModal = this.hkdo[ceJour]
           ? 'heureCadeau'
           : this.classHsupModal;
       } else {
         this.classHsupModal = 'noheure';
       }
       // ***************************** AFFICHE LE(s) COMMENTAIRE(s) DES NG SI PRESENT DANS LA MODAL
-      if (this.commentaireNg[index] !== '') {
+      console.log(
+        'jour ' + ceJour + ' commentaire NG : ' + this.commentaireNg[ceJour]
+      );
+      console.log(
+        'jour ' + ceJour + ' commentaire AGC : ' + this.commentaireAgc[ceJour]
+      );
+      console.log(
+        'jour ' + ceJour + ' commentaire R2N : ' + this.commentaireR2n[ceJour]
+      );
+
+      if (this.commentaireNg[ceJour] !== '') {
         this.classCommentaireNg = 'commentaire';
         this.titreCommentaireNgAAfficherModal =
-          'Rame Ng n° ' + this.enginNg[index] + ' :';
-        this.commentairesNgAAfficherModal = this.commentaireNg[index];
+          'Rame Ng n° ' + this.enginNg[ceJour] + ' :';
+        this.commentairesNgAAfficherModal = this.commentaireNg[ceJour];
       }
       // ***************************** AFFICHE LE(s) COMMENTAIRE(s) DES AGC SI PRESENT DANS LA MODAL
-      if (this.commentaireAgc[index] !== '') {
-        const nombreDeCommentaire = this.commentaireAgc[index].length;
+      if (this.commentaireAgc[ceJour] !== '') {
+        const nombreDeCommentaire = this.commentaireAgc[ceJour].length;
         this.classCommentaireAgc = 'commentaire';
 
         this.titreCommentaireAgcAAfficherModal =
-          'Rame Agc n° ' + this.enginAgc[index] + ' :';
-        this.commentairesAgcAAfficherModal = this.commentaireAgc[index];
+          'Rame Agc n° ' + this.enginAgc[ceJour] + ' :';
+        this.commentairesAgcAAfficherModal = this.commentaireAgc[ceJour];
       }
       // ***************************** AFFICHE LE(s) COMMENTAIRE(s) DES R2N SI PRESENT DANS LA MODAL
-      if (this.commentaireR2n[index] !== '') {
+      if (this.commentaireR2n[ceJour] !== '') {
         this.classCommentaireR2n = 'commentaire';
         this.titreCommentaireR2nAAfficherModal =
-          'Rame R2n n° ' + this.enginR2n[index] + ' :';
-        this.commentairesR2nAAfficherModal = this.commentaireR2n[index];
+          'Rame R2n n° ' + this.enginR2n[ceJour] + ' :';
+        this.commentairesR2nAAfficherModal = this.commentaireR2n[ceJour];
       }
 
       (document.getElementById('modal') as HTMLDialogElement).showModal();

@@ -16,9 +16,9 @@ import { ApiSpecialiteService } from '../services/api/api.specialites.service';
 import { ApiSystemeService } from '../services/api/api.systemes.service';
 import { ApiVoieService } from '../services/api/api.voies.service';
 import { Observable } from 'rxjs';
-import { JournéeEngin } from '../models/journéeEngin';
 import { DataAgcService } from '../services/data/data.agc.service';
 import { CommunService } from '../services/transverse/commun.service';
+import { JournéeEngin } from '../models/journéeEngin';
 
 @Component({
   selector: 'app-agc',

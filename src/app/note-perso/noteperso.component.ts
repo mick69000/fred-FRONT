@@ -26,17 +26,17 @@ import { NotePerso } from '../models/notePerso';
 })
 export class NotePersoComponent implements OnInit {
   dDJB = formatDate(new Date(), 'dd-MM-yyyy', 'fr');
-
+  
   constructor(
     private dataNotePersoService: DataNotePersoService,
     private communService: CommunService
   ) {}
-
+  
   ngOnInit() {
     this.date = this.dDJB;
     this.rechercheLesNotesDuJourSelectionne();
   }
-
+  
   date: string = this.dDJB;
   commentaire: string[] = [];
   btnValider: string = 'Valider';
@@ -52,6 +52,7 @@ export class NotePersoComponent implements OnInit {
   notesDuJourTriees: NotePerso[] = [];
   titre: string[] = [];
   id: number[] = [];
+  textAjoutModifie: string = "";
 
   rechercheLesNotesDuJourSelectionne() {
     this.notesDuJourTriees = [];
@@ -66,7 +67,7 @@ export class NotePersoComponent implements OnInit {
       this.nbrNote = this.notesDuJourTriees.length.toString();
 
       if (this.notesDuJourTriees.length === 0) {
-        this.reinitialiseLesChamps();
+        this.reinitialiseLesChamps(false);
       } else {
         this.ouvreDejaPresent();
       }
@@ -94,8 +95,8 @@ export class NotePersoComponent implements OnInit {
 
     this.dataNotePersoService.setNotePerso(noteAAjouter).subscribe({
       next: () => {
-        this.ouvreAjoute();
-        this.reinitialiseLesChamps();
+        this.ouvreAjoute("ajoutée");
+        this.reinitialiseLesChamps(true);
       },
     });
     this.btnValider = 'Valider';
@@ -109,8 +110,8 @@ export class NotePersoComponent implements OnInit {
       .updateNotePerso(this.id[0], titreAModifier, commentaireAModifier)
       .subscribe({
         next: () => {
-          this.ouvreAjoute(); //TODO: ouvrir modifiée
-          this.reinitialiseLesChamps();
+          this.ouvreAjoute("modifiée");
+          this.reinitialiseLesChamps(true);
         },
       });
     this.btnValider = 'Valider';
@@ -124,17 +125,18 @@ export class NotePersoComponent implements OnInit {
     this.dataNotePersoService
       .deleteNotePerso(this.dateVF(date), numero)
       .subscribe(() => {
-        this.reinitialiseLesChamps();
+        this.reinitialiseLesChamps(true);
         this.fermeConfirmeSupprime();
         this.ouvreEstSupprime();
       });
   }
 
-  reinitialiseLesChamps() {
+  reinitialiseLesChamps(aujourdhui: boolean) {
     this.numeroNote = 1;
     this.compteurMinimum = '1';
+    this.nbrNote = "0";
     this.commentaireAModifier = false;
-    this.date = this.dDJB;
+    if(aujourdhui === true){this.date = this.dDJB;}
     this.titre = [];
     this.commentaire = [];
     this.compteur = true;
@@ -147,7 +149,7 @@ export class NotePersoComponent implements OnInit {
     ).showModal();
   }
   fermeAnnuleDejaPresent() {
-    this.reinitialiseLesChamps();
+    this.reinitialiseLesChamps(true);
     this.fermeDejaPresent();
   }
   fermeDejaPresent() {
@@ -171,7 +173,8 @@ export class NotePersoComponent implements OnInit {
       document.getElementById('commentaireEstSupprime') as HTMLDialogElement
     ).close();
   }
-  ouvreAjoute() {
+  ouvreAjoute(text: string) {
+    this.textAjoutModifie = text;
     (document.getElementById('noteAjoute') as HTMLDialogElement).showModal();
   }
   fermeAjoute() {

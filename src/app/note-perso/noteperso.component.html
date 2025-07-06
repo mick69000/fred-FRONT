@@ -33,7 +33,7 @@
 
       <div class="valider">
         @if(afficheLesBoutonsModifier === true){
-        <wcs-button class="btn-valider btn-annuler" size="l" (click)="reinitialiseLesChamps()">Annuler</wcs-button>
+        <wcs-button class="btn-valider btn-annuler" size="l" (click)="reinitialiseLesChamps(false)">Annuler</wcs-button>
         <wcs-button class="btn-valider btn-effacer" size="l" (click)="ouvreConfirmeSupprime()">Supprimer</wcs-button>
         }
         <wcs-button class="btn-valider" size="l" (click)="valideOuMaj(titre[numeroNote-1], commentaire[numeroNote-1])" [disabled]="commentaireAModifier">{{btnValider}}</wcs-button>
@@ -69,7 +69,7 @@
 </dialog>
 
 <dialog id="noteAjoute" class="dialogAjoute">
-  <h1 class="label">La note a été ajoutée avec succes</h1>
+  <h1 class="label">La note a été {{textAjoutModifie}} avec succes</h1>
   <div class="boutonsAlerte">
     <wcs-button class="boutonOK" (click)="fermeAjoute()">OK
     </wcs-button>
@@ -85,7 +85,7 @@
   <div class="boutonsAlerte">
     <wcs-button class="boutonOK" (click)="fermeConfirmeSupprime()">NON
     </wcs-button>
-    <wcs-button class="boutonOK" (click)="supprimeUneNote(date, numeroNote -1)">Confirmer
+    <wcs-button class="boutonOK" (click)="supprimeUneNote(date, numeroNote)">Confirmer
     </wcs-button>
   </div>
 </dialog>

@@ -20,7 +20,7 @@
             {{ 'NUIT' | afficheNomJour: jour }}
           </div>
           <div [ngClass]="afficheNotePerso(jour)">
-            {{ calculeNbrNotePourCeJour(jour)}}
+            {{ afficheLePremierTitreDuJour(jour)}}
           </div>
           <div [ngClass]="afficheHeures(jour)">
             {{ heureDebutEtFin(jour) | afficheNomJour: jour }}
@@ -36,9 +36,9 @@
 <dialog id="modal" class="dialogModal">
   <h1 class="label">{{dateAAfficherModal}} </h1>
   <div class="travail">Travaillé de NUIT</div>
-  <div [ngClass]="classNotePerso">
-    <h3>{{titreNotePersoAAfficherModal}}
-      <pre>{{notePersoAAfficherModal}}</pre>
+  <div [ngClass]="classNotePerso" *ngFor="let note of titreEtNotePersoAAfficherModalDuJour;">
+    <h3>{{note.titre}}
+      <pre>{{note.commentaire}}</pre>
     </h3>
   </div>
   <div [ngClass]="classHsupModal">
