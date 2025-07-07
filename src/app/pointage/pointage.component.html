@@ -36,30 +36,41 @@
 <dialog id="modal" class="dialogModal">
   <h1 class="label">{{dateAAfficherModal}} </h1>
   <div class="travail">Travaillé de NUIT</div>
-  <div [ngClass]="classNotePerso" *ngFor="let note of titreEtNotePersoAAfficherModalDuJour;">
-    <h3>{{note.titre}}
-      <pre>{{note.commentaire}}</pre>
-    </h3>
+  <div class="boutons_onglets">
+    <button [ngClass]="classBtnNotesPerso" (click)="autoriseAAficcher('notesPerso')">Notes Perso</button>
+    <button [ngClass]="classBtnSupastr" (click)="autoriseAAficcher('supastr')">H sup/astreinte</button>
+    <button [ngClass]="classBtnComment" (click)="autoriseAAficcher('comment')">Commentaires</button>
   </div>
-  <div [ngClass]="classHsupModal">
-    <h3>{{titreHsupAAfficherModal}}
-      <pre>{{texteHsupAAfficherModal}}</pre>
-    </h3>
+  <div *ngIf="peutAfficherNotesPerso">
+    <div [ngClass]="classNotePerso" *ngFor="let note of titreEtNotePersoAAfficherModalDuJour;">
+      <h3>{{note.titre}}
+        <pre>{{note.commentaire}}</pre>
+      </h3>
+    </div>
   </div>
-  <div [ngClass]="classCommentaireNg">
-    <h3>{{titreCommentaireNgAAfficherModal}}
-      <pre>{{commentairesNgAAfficherModal}}</pre>
-    </h3>
+  <div *ngIf="peutAfficherSupastr">
+    <div [ngClass]="classHsupModal">
+      <h3>{{titreHsupAAfficherModal}}
+        <pre>{{texteHsupAAfficherModal}}</pre>
+      </h3>
+    </div>
   </div>
-  <div [ngClass]="classCommentaireAgc">
-    <h3>{{titreCommentaireAgcAAfficherModal}}
-      <pre>{{commentairesAgcAAfficherModal}}</pre>
-    </h3>
-  </div>
-  <div [ngClass]="classCommentaireR2n">
-    <h3>{{titreCommentaireR2nAAfficherModal}}
-      <pre>{{commentairesR2nAAfficherModal}}</pre>
-    </h3>
+  <div *ngIf="peutAfficherCommentaire">
+    <div [ngClass]="classCommentaireNg">
+      <h3>{{titreCommentaireNgAAfficherModal}}
+        <pre>{{commentairesNgAAfficherModal}}</pre>
+      </h3>
+    </div>
+    <div [ngClass]="classCommentaireAgc">
+      <h3>{{titreCommentaireAgcAAfficherModal}}
+        <pre>{{commentairesAgcAAfficherModal}}</pre>
+      </h3>
+    </div>
+    <div [ngClass]="classCommentaireR2n">
+      <h3>{{titreCommentaireR2nAAfficherModal}}
+        <pre>{{commentairesR2nAAfficherModal}}</pre>
+      </h3>
+    </div>
   </div>
 
   <div class="boutonsAlerte">

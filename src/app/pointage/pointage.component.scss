@@ -142,7 +142,7 @@ background-color: rgb(172, 197, 244);
 background-color: rgb(245, 209, 165);
 }
 .heureCadeau {
-  background-color: rgb(191, 239, 243);
+  background-color: rgb(172, 197, 244);
 }
 .commentaire {
   margin-top: 5px;
@@ -188,5 +188,45 @@ h3 {
 pre {
   text-decoration-line: none ;
   text-decoration-thickness: 0;
-
 }
+
+.boutons_onglets {
+ display: flex;
+ justify-content:space-around
+}
+
+.btn-notesPersoOK {
+  border-radius: 20px;
+       background-color: rgb(135, 184, 51);
+    }
+.btn-notesPersoNOK {
+  display: none;
+    }
+
+    .btn-astrOK {
+      border-radius: 20px;
+           background-color: rgb(245, 209, 165);
+           color: red;
+        }
+    .btn-hsupOK {
+      border-radius: 20px;
+           background-color: rgb(172, 197, 244);
+           color: red;
+        }
+    .btn-hkdoOK {
+      border-radius: 20px;
+           background-color: rgb(172, 197, 244);
+           color: black;
+        }
+    .btn-supastrNOK {
+  display: none;
+    }
+
+.btn-commentOK {
+  border-radius: 20px;
+       background-color: rgb(77, 77, 249);
+       color: white;
+    }
+.btn-commentNOK {
+  display: none;
+    }
