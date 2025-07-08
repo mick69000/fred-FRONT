@@ -272,3 +272,40 @@ margin: 0;
   border: 1px solid #065654;
   border-radius: 9px;
 }
+.dialogErreur, .dialogOK {
+  margin: auto;
+  padding: 20px;
+  border: 6px solid rgb(246, 3, 3);
+  border-radius: 8px;
+  max-width: 500px;
+  background-color: rgb(223, 127, 127);
+
+  .label {
+    font-weight: bold;
+    font-size: x-large;
+    text-align: center;
+  }
+
+  .boutonsDialog {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    margin-top: 40px;
+  }
+  .boutonsAlerte {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    margin-top: 40px;
+  }
+}
+
+.dialogOK {
+  border: 2px solid rgb(2, 2, 2);
+  background-color: rgb(134, 220, 144);
+}
+
+.dialogErreur::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}

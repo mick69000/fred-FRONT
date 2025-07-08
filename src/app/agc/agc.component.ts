@@ -173,6 +173,7 @@ export class AgcComponent implements OnInit {
   agent2Valide: boolean = true;
   agent3Valide: boolean = true;
   agent4Valide: boolean = true;
+  messageOK: string = '';
 
   rafraichirLesDonneés() {
     this.récupèreLesSetterDUnType(
@@ -304,7 +305,8 @@ export class AgcComponent implements OnInit {
       }
       this.dataAgcService.setAgc(journéeAAjouter).subscribe({
         next: () => {
-          alert('journée enregistrée....');
+          this.messageOK = 'journée enregistrée';
+          this.ouvreDialogOK();
           this.récupèreTousLesJoursDeLaBDD();
           this.reinitialiseLesChamps();
         },
@@ -312,12 +314,13 @@ export class AgcComponent implements OnInit {
     } else {
       this.aremplirE = this.engin === '' ? 'aRemplir' : '';
       this.aremplirA = this.agent1 === '' ? 'aRemplir' : '';
-      alert('Les champs `Engin` et `Agent 1` sont OBLIGATOIRES !!!');
+      this.ouvreChampsNonRenseignes();
     }
   }
   effaceUneJournée(journéeAEffacer: string) {
     this.dataAgcService.deleteAgc(journéeAEffacer).subscribe(() => {
-      alert('Journée effacée');
+      this.messageOK = 'Journée effacée';
+      this.ouvreDialogOK();
       this.reinitialiseLesChamps();
     });
   }
@@ -487,5 +490,25 @@ export class AgcComponent implements OnInit {
         this.aremplirD = '';
         break;
     }
+  }
+
+  ouvreChampsNonRenseignes() {
+    (
+      document.getElementById('champsNonRenseignes') as HTMLDialogElement
+    ).showModal();
+  }
+
+  fermeChampsNonRenseignes() {
+    (
+      document.getElementById('champsNonRenseignes') as HTMLDialogElement
+    ).close();
+  }
+
+  ouvreDialogOK() {
+    (document.getElementById('dialogOK') as HTMLDialogElement).showModal();
+  }
+
+  fermeDialogOK() {
+    (document.getElementById('dialogOK') as HTMLDialogElement).close();
   }
 }

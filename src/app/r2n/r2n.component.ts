@@ -173,6 +173,7 @@ export class R2nComponent implements OnInit {
   agent2Valide: boolean = true;
   agent3Valide: boolean = true;
   agent4Valide: boolean = true;
+  messageOK: string = '';
 
   rafraichirLesDonneés() {
     this.récupèreLesSetterDUnType(
@@ -310,7 +311,8 @@ export class R2nComponent implements OnInit {
       }
       this.dataR2nService.setR2n(journéeAAjouter).subscribe({
         next: () => {
-          alert('journée enregistrée....');
+          this.messageOK = 'journée enregistrée';
+          this.ouvreDialogOK();
           this.récupèreTousLesJoursDeLaBDD();
           this.reinitialiseLesChamps();
         },
@@ -323,7 +325,8 @@ export class R2nComponent implements OnInit {
   }
   effaceUneJournée(journéeAEffacer: string) {
     this.dataR2nService.deleteR2n(journéeAEffacer).subscribe(() => {
-      alert('Journée effacée');
+      this.messageOK = 'Journée effacée';
+      this.ouvreDialogOK();
       this.reinitialiseLesChamps();
     });
   }
@@ -481,5 +484,25 @@ export class R2nComponent implements OnInit {
         this.agent4Valide = false;
         break;
     }
+  }
+
+  ouvreChampsNonRenseignes() {
+    (
+      document.getElementById('champsNonRenseignes') as HTMLDialogElement
+    ).showModal();
+  }
+
+  fermeChampsNonRenseignes() {
+    (
+      document.getElementById('champsNonRenseignes') as HTMLDialogElement
+    ).close();
+  }
+
+  ouvreDialogOK() {
+    (document.getElementById('dialogOK') as HTMLDialogElement).showModal();
+  }
+
+  fermeDialogOK() {
+    (document.getElementById('dialogOK') as HTMLDialogElement).close();
   }
 }

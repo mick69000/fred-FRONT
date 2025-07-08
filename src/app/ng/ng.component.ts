@@ -173,6 +173,7 @@ export class NgComponent implements OnInit {
   agent2Valide: boolean = true;
   agent3Valide: boolean = true;
   agent4Valide: boolean = true;
+  messageOK: string = '';
 
   rafraichirLesDonneés() {
     this.récupèreLesSetterDUnType(
@@ -311,7 +312,8 @@ export class NgComponent implements OnInit {
       }
       this.dataNgService.setNg(journéeAAjouter).subscribe({
         next: () => {
-          alert('journée enregistrée....');
+          this.messageOK = 'journée enregistrée';
+          this.ouvreDialogOK();
           this.récupèreTousLesJoursDeLaBDD();
           this.reinitialiseLesChamps();
         },
@@ -324,7 +326,8 @@ export class NgComponent implements OnInit {
   }
   effaceUneJournée(journéeAEffacer: string) {
     this.dataNgService.deleteNg(journéeAEffacer).subscribe(() => {
-      alert('Journée effacée');
+      this.messageOK = 'Journée effacée';
+      this.ouvreDialogOK();
       this.reinitialiseLesChamps();
     });
   }
@@ -485,5 +488,25 @@ export class NgComponent implements OnInit {
         this.agent4Valide = false;
         break;
     }
+  }
+
+  ouvreChampsNonRenseignes() {
+    (
+      document.getElementById('champsNonRenseignes') as HTMLDialogElement
+    ).showModal();
+  }
+
+  fermeChampsNonRenseignes() {
+    (
+      document.getElementById('champsNonRenseignes') as HTMLDialogElement
+    ).close();
+  }
+
+  ouvreDialogOK() {
+    (document.getElementById('dialogOK') as HTMLDialogElement).showModal();
+  }
+
+  fermeDialogOK() {
+    (document.getElementById('dialogOK') as HTMLDialogElement).close();
   }
 }
