@@ -11,6 +11,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DataHsupastService } from '../services/data/data.hsupast.service';
 import { JournéeAAjouter } from '../models/journéeAAjouter';
 import { CalculHsupService } from '../services/data/calcul.hsupast.service';
+import { MercrediService, Mercredi } from '../models/semaines';
 
 @Component({
   selector: 'app-hsupastreinte',
@@ -29,6 +30,7 @@ import { CalculHsupService } from '../services/data/calcul.hsupast.service';
 })
 export class HsupastreinteComponent implements OnInit {
   dDJB = formatDate(new Date(), 'yyyy-MM-dd', 'fr');
+  showOnlySelected = false;
 
   ngOnInit(): void {
     this.récupèreTousLesJoursDeLaBDD();
@@ -48,7 +50,8 @@ export class HsupastreinteComponent implements OnInit {
     private hsupastreinteService: HsupastreinteService,
     private dataHsupService: DataHsupastService,
     private calculHsupService: CalculHsupService,
-    private CommunService: CommunService
+    private CommunService: CommunService,
+    private mercrediService: MercrediService
   ) {}
 
   tousLesData: any[] = [];
@@ -75,6 +78,7 @@ export class HsupastreinteComponent implements OnInit {
   journéeAModifier: any = '';
   modifier: boolean = false;
   btnValider: string = 'VALIDER';
+  mesMercredis: Mercredi[] = [];
 
   get heureMinDynamic(): string {
     return this._heureMinDynamic;
@@ -324,6 +328,32 @@ export class HsupastreinteComponent implements OnInit {
       'annee'
     );
     this.fermeSelectAModifier();
+  }
+  ouvreSemainesDAstreinte() {
+    (
+      document.getElementById('semainesDAstreinte') as HTMLDialogElement
+    ).showModal();
+  }
+  mAJSemaine() {
+    this.fermerSemainesDAstreinte();
+  }
+  fermerSemainesDAstreinte() {
+    (
+      document.getElementById('semainesDAstreinte') as HTMLDialogElement
+    ).close();
+  }
+  ouvreUneNouvelleAnnee() {
+    this.mesMercredis = this.mercrediService.getAllMercredis(2025);
+    console.log(this.mesMercredis);
+  }
+  get filteredMercredis(): Mercredi[] {
+    return this.showOnlySelected
+      ? this.mesMercredis.filter((m) => m.value)
+      : this.mesMercredis;
+  }
+
+  toggleFilter(): void {
+    this.showOnlySelected = !this.showOnlySelected;
   }
 }
 /*

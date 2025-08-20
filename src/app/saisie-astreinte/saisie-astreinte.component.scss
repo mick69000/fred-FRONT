@@ -1,4 +1,54 @@
-h1 {
-  text-align: center;
+body {
+  background-color: rgb(219, 241, 243);
+  .pagePrincipale {
+    padding: 0;
+    margin: 0;
+    color: black;
+
+    .titre {
+      text-align: center;
+    }
+
+
+    .pointage {
+
+      .heures {
+        display: flex;
+        flex-direction: column;
+
+        .premiereLigne {
+          display: flex;
+          flex-direction: row;
+          .legende {
+            padding: 0 .5% .5% .5%;
+            text-align: center;
+            border: 1px solid black;
+            width: 10px;
+            height: 30px;
+          }
+        }
+        .toto {
+
+          display: flex;
+          flex-direction: row;
+        }
+        .jourDeSortie {
+          display: flex;
+          flex-direction: row;
+        }
+
+        .sortieRouge {
+          background-color: red;
+          width: 10px;
+          height: 30px;
+        }
+        .sortieBlanc {
+          background-color: white;
+          width: 10px;
+          height: 30px;
+        }
+      }
+    }
+  }
 }
 

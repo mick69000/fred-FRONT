@@ -87,6 +87,11 @@
         <wcs-label class="label-astreinte-valeur">{{heureDeLAnnee}}</wcs-label>
       </div>
     </div>
+    <div class="boutonModifier" matTooltip="Modifier les semaines" matTooltipPosition="above" matTooltipClass="custom-tooltip">
+      <button class="bouton-icon" (click)="ouvreSemainesDAstreinte()">
+        <mat-icon class="boutonModifier">event</mat-icon>
+      </button>
+    </div>
     <div class="valider">
       @if(modifier === true){
       <wcs-button class="btn-valider btn-annuler" size="l" (click)="reinitialiseLesChamps()">Annuler</wcs-button>
@@ -107,5 +112,36 @@
   <div class="boutonsAlerte">
     <wcs-button class="boutonOK" (click)="reinitialiseLesChamps()">Annuler</wcs-button>
     <wcs-button class="boutonOK" (click)="jourAModifier()">valider</wcs-button>
+  </div>
+</dialog>
+<dialog id="semainesDAstreinte" class="semainesDAstreinte">
+  <div>
+    <button class="newYear" (click)="ouvreUneNouvelleAnnee()">
+      New Year
+    </button>
+    <div class="toolbar">
+      <button class="filtre" (click)="toggleFilter()">
+        {{ showOnlySelected ? 'Afficher tout' : 'Afficher seulement les cochés' }}
+      </button>
+    </div>
+
+    <div class="cadre">
+      <ng-container *ngFor="let m of filteredMercredis; let i = index">
+        <!-- Afficher le mois si c'est le premier élément ou si le mois change -->
+        <div *ngIf="i === 0 || m.month !== filteredMercredis[i-1].month" class="month-separator">
+          {{ m.month }}
+        </div>
+
+        <div class="row" [class.selected]="m.value">
+          <input type="checkbox" [(ngModel)]="m.value" />
+          <span>
+            {{ m.date }}</span>
+        </div>
+      </ng-container>
+    </div>
+    <div>
+    </div>
+    <wcs-button class="boutonOK" (click)="fermerSemainesDAstreinte()">Annuler</wcs-button>
+    <wcs-button class="boutonOK" (click)="mAJSemaine()">valider</wcs-button>
   </div>
 </dialog>

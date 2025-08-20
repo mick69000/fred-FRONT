@@ -1,3 +1,46 @@
-<div>
-  <h1>Bienvenue sur la page SAISIE ASTREINTE</h1>
-</div>
+<body>
+  <div class="pagePrincipale">
+    <div class="titre">
+      <p>Service effectué par les agents d'Astreinte --- Dépanneur maintenance NSZ - CSZ</p>
+    </div>
+    <div class="blocsEntete">
+      <div class="periode">
+        <P>Début astreinte (7h45)</P>
+      </div>
+      <div class="dirigeants">
+      </div>
+      <div class="legende">
+      </div>
+      <div class="logos">
+      </div>
+    </div>
+    <div class="pointage">
+      <div class="heures">
+        <div class="premiereLigne">
+          <div class="legende" *ngFor="let heure of heures">
+            <p>{{heure}}</p>
+          </div>
+          <div class="motif">
+            <p>Motifs des sorties</p>
+          </div>
+        </div>
+        <div *ngFor="let jour of semaine" class="toto">
+          <div *ngFor="let detail of jour" class="jourDeSortie">
+
+            <div *ngIf="detail === true" class="sortieRouge"></div>
+
+            <div *ngIf="detail !== true" class="sortieBlanc"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pied-de-page">
+      <div class="agent">
+      </div>
+      <div class="signature">
+      </div>
+      <div class="etablissement">
+      </div>
+    </div>
+  </div>
+</body>
