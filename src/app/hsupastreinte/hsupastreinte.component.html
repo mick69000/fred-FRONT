@@ -116,32 +116,58 @@
 </dialog>
 <dialog id="semainesDAstreinte" class="semainesDAstreinte">
   <div>
-    <button class="newYear" (click)="ouvreUneNouvelleAnnee()">
-      New Year
-    </button>
+    <div *ngIf="nouvelleAnnee" class="divNewYear">
+      <button class="newYear" (click)="ouvreUneNouvelleAnnee()">
+        New Year
+      </button>
+    </div>
     <div class="toolbar">
       <button class="filtre" (click)="toggleFilter()">
         {{ showOnlySelected ? 'Afficher tout' : 'Afficher seulement les cochés' }}
       </button>
     </div>
 
+    @if (nouvelleAnnee) {
+    <div class="cadre pasDeSemaine">
+      <h1>
+        Aucunes données enregistrées
+      </h1>
+      <h1>
+        pour cette année
+      </h1>
+      <h3>
+        Veuillez cliquer sur le bouton 'New Year'
+      </h3>
+    </div>
+    } @else {
     <div class="cadre">
-      <ng-container *ngFor="let m of filteredMercredis; let i = index">
+      <ng-container *ngFor="let m of filteredSemaines; let i = index">
         <!-- Afficher le mois si c'est le premier élément ou si le mois change -->
-        <div *ngIf="i === 0 || m.month !== filteredMercredis[i-1].month" class="month-separator">
+        <div *ngIf="i === 0 || m.month !== filteredSemaines[i-1].month" class="month-separator">
           {{ m.month }}
         </div>
 
-        <div class="row" [class.selected]="m.value">
-          <input type="checkbox" [(ngModel)]="m.value" />
-          <span>
-            {{ m.date }}</span>
-        </div>
+        <label class="row" [class.selected]="m.month">
+          <input type="checkbox" [(ngModel)]="m.astreinte" class="big-checkbox" />
+          <span class="date-text">
+            {{ m.semaine }}</span>
+        </label>
       </ng-container>
     </div>
+    }
     <div>
     </div>
-    <wcs-button class="boutonOK" (click)="fermerSemainesDAstreinte()">Annuler</wcs-button>
-    <wcs-button class="boutonOK" (click)="mAJSemaine()">valider</wcs-button>
+    <div class="divBoutons">
+      <wcs-button class="boutonOK" (click)="fermerSemainesDAstreinte()">Annuler</wcs-button>
+      <div class="counter">
+        {{ selectedCount }} semaine(s) cochée(s) sur
+        {{ totalCount }}
+      </div>
+      @if (nouvelleAnnee) {
+      <wcs-button class="boutonOK" (click)="ajouterSemaines()">Sauvegarder</wcs-button>
+      } @else {
+      <wcs-button class="boutonOK" (click)="mAJSemaines()">Mettre à jour</wcs-button>
+      }
+    </div>
   </div>
 </dialog>

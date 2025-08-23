@@ -1,3 +1,5 @@
+import { SemainesDAstreinte } from './../models/semainesDAstreinte';
+import { DataSemainesDAstreinteService } from './../services/data/data.semainesDAstreinte.service';
 import { CommunService } from './../services/transverse/commun.service';
 import { HsupastreinteService } from '../services/hsupastreinte.service';
 import { Component, OnInit } from '@angular/core';
@@ -34,6 +36,7 @@ export class HsupastreinteComponent implements OnInit {
 
   ngOnInit(): void {
     this.récupèreTousLesJoursDeLaBDD();
+    this.récupèreLesSemainesDAstreinteDeLAnnéeEnCours();
 
     const returnDeDiffH = this.hsupastreinteService.diffH(
       this.heureDebut,
@@ -51,10 +54,13 @@ export class HsupastreinteComponent implements OnInit {
     private dataHsupService: DataHsupastService,
     private calculHsupService: CalculHsupService,
     private CommunService: CommunService,
-    private mercrediService: MercrediService
+    private mercrediService: MercrediService,
+    private semainesDAstreinteService: DataSemainesDAstreinteService
   ) {}
 
   tousLesData: any[] = [];
+  semainesDAstreinte: SemainesDAstreinte[] = [];
+  annéeEnCours: number = new Date().getFullYear();
   dateDebut = this.formatDate(this.dDJB);
   dateFin = this.formatDate(this.dDJB);
   heureDebut = '12:00';
@@ -78,7 +84,7 @@ export class HsupastreinteComponent implements OnInit {
   journéeAModifier: any = '';
   modifier: boolean = false;
   btnValider: string = 'VALIDER';
-  mesMercredis: Mercredi[] = [];
+  nouvelleAnnee: boolean = false;
 
   get heureMinDynamic(): string {
     return this._heureMinDynamic;
@@ -86,6 +92,20 @@ export class HsupastreinteComponent implements OnInit {
 
   set heureMinDynamic(value: string) {
     this._heureMinDynamic = value;
+  }
+
+  get filteredSemaines(): SemainesDAstreinte[] {
+    return this.showOnlySelected
+      ? this.semainesDAstreinte.filter((m) => m.astreinte)
+      : this.semainesDAstreinte;
+  }
+
+  get selectedCount(): number {
+    return this.semainesDAstreinte.filter((m) => m.astreinte).length;
+  }
+
+  get totalCount(): number {
+    return this.semainesDAstreinte.length;
   }
 
   récupèreTousLesJoursDeLaBDD() {
@@ -106,6 +126,38 @@ export class HsupastreinteComponent implements OnInit {
         'annee'
       );
     });
+  }
+
+  récupèreLesSemainesDAstreinteDeLAnnéeEnCours() {
+    this.semainesDAstreinteService.getAllSemaines().subscribe((data: any[]) => {
+      this.semainesDAstreinte = [];
+      this.nouvelleAnnee = false;
+      const semaines = data
+        // 👉 filtrer sur 2025
+        .filter((s) => s.annee === this.annéeEnCours)
+        // 👉 trier par numéro de semaine
+        .sort((a, b) => a.semaine - b.semaine);
+
+      console.log(semaines);
+      // tu peux les stocker dans une variable de classe si besoin
+      this.semainesDAstreinte = semaines;
+      if (this.semainesDAstreinte.length === 0) {
+        this.nouvelleAnnee = true;
+      }
+      console.log('nombre de semaines : ' + this.semainesDAstreinte.length);
+    });
+  }
+
+  metAJourLesSemainesDAstreinte() {
+    this.semainesDAstreinteService
+      .updateSemaines(this.semainesDAstreinte)
+      .subscribe();
+  }
+
+  ajouterLesSemainesDAstreinte() {
+    this.semainesDAstreinteService
+      .setSemaines(this.semainesDAstreinte)
+      .subscribe();
   }
 
   formatDate(date: string): string {
@@ -201,23 +253,6 @@ export class HsupastreinteComponent implements OnInit {
       this.CommunService.récupèreLeMoisEtLAnnée(this.dateDebut)[0],
       this.dateFin,
       this.heureFin.replace(/-undefined/g, ''),
-      this.astreinte,
-      this.hsup,
-      this.cadeau,
-      this.commentaire,
-      this.heureSaisie,
-      this.heureDuMois,
-      this.heureDeLAnnee
-    );
-
-    console.log(
-      'journée à ajouter ligne 208 : ' +
-        this.dateDebut.replace(/-undefined/g, ''),
-      this.heureDebut,
-      this.CommunService.récupèreLeMoisEtLAnnée(this.dateDebut)[1],
-      this.CommunService.récupèreLeMoisEtLAnnée(this.dateDebut)[0],
-      this.dateFin.replace(/-undefined/g, ''),
-      this.heureFin,
       this.astreinte,
       this.hsup,
       this.cadeau,
@@ -334,26 +369,43 @@ export class HsupastreinteComponent implements OnInit {
       document.getElementById('semainesDAstreinte') as HTMLDialogElement
     ).showModal();
   }
-  mAJSemaine() {
+  mAJSemaines() {
+    this.metAJourLesSemainesDAstreinte();
     this.fermerSemainesDAstreinte();
+  }
+
+  ajouterSemaines() {
+    this.ajouterLesSemainesDAstreinte();
+    this.fermerSemainesDAstreinte();
+    this.nouvelleAnnee = false;
   }
   fermerSemainesDAstreinte() {
     (
       document.getElementById('semainesDAstreinte') as HTMLDialogElement
     ).close();
   }
+
   ouvreUneNouvelleAnnee() {
-    this.mesMercredis = this.mercrediService.getAllMercredis(2025);
-    console.log(this.mesMercredis);
-  }
-  get filteredMercredis(): Mercredi[] {
-    return this.showOnlySelected
-      ? this.mesMercredis.filter((m) => m.value)
-      : this.mesMercredis;
+    console.log('nouvelle année');
+    this.nouvelleAnnee = false;
+
+    this.semainesDAstreinte = this.toSemaineDAstreinte(
+      this.mercrediService.getAllSemaines(this.annéeEnCours)
+    );
+    console.log(this.semainesDAstreinte);
   }
 
   toggleFilter(): void {
     this.showOnlySelected = !this.showOnlySelected;
+  }
+
+  toSemaineDAstreinte(mercredi: Mercredi[]): SemainesDAstreinte[] {
+    return mercredi.map((m) => ({
+      semaine: m.date,
+      astreinte: m.value,
+      month: m.month,
+      annee: 2025,
+    }));
   }
 }
 /*

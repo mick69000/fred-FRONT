@@ -1,16 +1,19 @@
 body {
   background-color: rgb(219, 241, 243);
 }
+
 .entete {
   display: flex;
   flex-direction: row;
   justify-content: end;
   width: 100%;
 }
+
 .titre {
   margin: 1% 5%;
   width: 60%;
 }
+
 .modifier {
   margin: auto 5%;
 }
@@ -20,6 +23,7 @@ h1 {
   padding: 0;
   margin: 0;
 }
+
 .date {
   display: flex;
   flex-direction: row;
@@ -28,6 +32,7 @@ h1 {
   justify-content: space-around;
   align-items: center;
 }
+
 .datedebut {
   width: 20%;
   text-align: center;
@@ -37,10 +42,12 @@ h1 {
   --wcs-input-font-size: 2em;
   --wcs-input-value-font-weight: 900;
 }
+
 .datefin{
   width: 20%;
   text-align: center;
 }
+
 .horaire {
   display: flex;
   flex-direction: row;
@@ -54,12 +61,14 @@ h1 {
     font-size: x-large;
   }
 }
+
 .label-date {
   font-family: "avenir-black", sans-serif;
   font-size: x-large;
   font-weight: bold;
   margin-left: 5px;
 }
+
 .label-heure, .label-astreinte {
   font-family: "avenir-black", sans-serif;
   font-size: large;
@@ -67,6 +76,7 @@ h1 {
   margin-left: 15px;
   margin-top: 10px;
 }
+
 .toggle {
   display: flex;
   flex-direction: column;
@@ -74,16 +84,19 @@ h1 {
   width: 30%;
   background-color: #dc1d1d;
 }
+
 .toggle-titre {
   font-size: 30px;
   font-weight: bold;
   width: 200px;
   margin-bottom: 20px;
 }
+
 .switch {
   display: flex;
   justify-content: start;
 }
+
 .buttonCadeau {
   height: 40px;
   width: 40px;
@@ -92,20 +105,23 @@ h1 {
   border: none;
   cursor: pointer;
 }
+
 .cadeauKO {
   color: crimson;
 }
+
 .cadeauOK {
   color: rgb(20, 220, 37);
 }
+
 .buttonCadeau:hover  {
   background-color: rgb(219, 230, 242);
 }
 
 .pavé-milieu {
   height: 40%;
-
 }
+
 .label-commentaire {
   font-family: "avenir-black", sans-serif;
   text-decoration: underlines;
@@ -120,6 +136,7 @@ h1 {
   height: 90%;
   margin-left: 10%;
 }
+
 .pavé-inférieur {
   display: flex;
   flex-direction: row;
@@ -128,13 +145,15 @@ h1 {
   height: 30%;
   width: 100%;
 }
+
 .résumé {
   width: 50%;
 }
+
 .div-label {
   height: 15%;
-
 }
+
 .label-résumé {
   font-family: "avenir-black", sans-serif;
   font-size: x-large;
@@ -144,6 +163,7 @@ h1 {
   margin-bottom: 20px;
   color: black;
 }
+
 .label-astreinte-valeur {
   margin-left: 5%;
   font-family: "avenir-book", sans-serif;
@@ -151,6 +171,7 @@ h1 {
   border:  thick double #32a1ce;
   font-size:large;
 }
+
 .valider {
   display: flex;
   flex-direction: column;
@@ -159,10 +180,11 @@ h1 {
   height: 50%;
   width: 10%;
 }
+
 .btn-valider {
   margin-top: 20%;
-
 }
+
 .dialogModif {
   border: 2px solid rgb(2, 2, 2);
   background-color: rgb(157, 220, 197);
@@ -172,12 +194,14 @@ h1 {
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(2px);
 }
+
 .boutonsAlerte {
   display: flex;
   justify-content:space-between;
   align-items: center;
   margin-top: 40px;
 }
+
 .boutonModifier {
   height: 35px;
   width: 35px;
@@ -186,59 +210,130 @@ h1 {
   color: #065654;
   cursor: pointer;
 }
+
 .bouton-icon {
   background-color: rgb(219, 241, 243);
   border: 0 ;
 }
-.cadre {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px;
-  max-height: 400px;
-  overflow-y: auto;
-  background-color: #fafafa;
-  font-family: Arial, sans-serif;
+
+.semainesDAstreinte {
+  background-color: rgb(219, 241, 243);
+  width: 700px;
+  backdrop-filter: blur(2px);
+
+  .cadre {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    height: 400px;
+    overflow-y: auto;
+    background-color: #fafafa;
+    font-family: Arial, sans-serif;
+
+    span {
+      font-size: 3em;
+    }
+  }
+
+  .pasDeSemaine {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    height: 400px;
+    overflow-y: auto;
+    background-color: #db9999;
+    font-family: Arial, sans-serif;
+    text-align: center;
+
+    h1, h3 {
+      margin-top: 50px;
+    }
+  }
+
+  .toolbar {
+    display: flex;
+    justify-content: center; /* centre horizontalement */
+    margin: 10px auto;
+  }
+
+  .filtre {
+    border: 2px #065654 solid;
+    color: #065654;
+    margin: 10px auto;
+  }
+
+  .divNewYear{
+    display: flex;
+    justify-content: right;
+    margin: 10px auto;
+
+    .newYear {
+      border: 2px #065654 solid;
+      color: #065654;
+      font-size: 10px;
+    }
+  }
+
+  .month-separator {
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 24px;
+    background-color: #065654;
+    color: azure;
+    border-bottom: 5px solid #065654;
+    padding-bottom: 2px;
+    text-align: center;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    border-radius: 4px;
+    cursor: pointer; /* ✅ indique que c’est cliquable */
+  }
+
+  .row input[type="checkbox"] {
+    margin-right: 10px;
+  }
+
+  .row.selected {
+    background-color: #d4edda; /* vert clair */
+  }
+  .divBoutons {
+    display: flex;
+    justify-content: space-between;
+
+    .boutonOK {
+      margin: 20px;
+    }
+
+    .counter {
+      font-size: 26px;
+      font-weight: bold;
+      margin: 30px 0;
+      text-align: center;
+      color: #222;
+    }
+  }
+
+
+  .big-checkbox {
+    transform: scale(3);  /* ✅ agrandir la checkbox */
+    margin-right: 15px; /* ✅ espace entre checkbox et texte */
+    cursor: pointer;
+  }
+
+  .date-text {
+    flex: 1;
+    font-size: 14px;
+    margin-left: 20px;
+  }
+}
+.semainesDAstreinte::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
 }
 
-.toolbar {
-  margin: 10px;
-}
-.filtre {
-  border: 2px #065654 solid;
-  color: #065654;
-  margin: 10px auto;
-}
-.newYear {
-  border: 2px #065654 solid;
-  color: #065654;
-  margin-left: 60%;
-  font-size: 10px;
-}
 
-.month-separator {
-  margin: 10px 0;
-  font-weight: bold;
-  font-size: 24px;
-  color: #444;
-  border-bottom: 5px solid #ccc;
-  padding-bottom: 2px;
-}
-
-.row {
-  display: flex;
-  align-items: center;
-  padding: 4px 6px;
-  border-radius: 4px;
-}
-
-.row input[type="checkbox"] {
-  margin-right: 10px;
-}
-
-.row.selected {
-  background-color: #d4edda; /* vert clair */
-}
-.boutonOK {
-  margin: 20px;
-}
 
